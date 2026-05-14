@@ -45,10 +45,11 @@ class HafalanController extends Controller
         if (!empty($groups)) {
             $query->whereIn('group_name', $groups);
         }
-        $allLetters = $query->get();
+        $allLetters = $query->inRandomOrder()->get();
 
         if ($count !== 'all') {
-            $allLetters = $allLetters->random(min((int)$count, $allLetters->count()));
+            $take = min((int)$count, $allLetters->count());
+            $allLetters = $allLetters->take($take);
         }
 
         $questions = $allLetters->map(function ($letter) use ($mode) {

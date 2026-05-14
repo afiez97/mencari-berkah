@@ -2,7 +2,9 @@
 
 <div x-data="{
     mode: '{{ request('mode', 'mixed') }}',
-    count: 10,
+    count: 20,
+    customCount: '',
+    showCustom: false,
     groups: ['dot_family','round_family','straight_family','teeth_family','tail_family','misc'],
     toggleGroup(g) {
         if (this.groups.includes(g)) {
@@ -11,11 +13,26 @@
             this.groups.push(g);
         }
     },
+    setCount(val) {
+        if (val === 'custom') {
+            this.showCustom = true;
+            this.count = 'custom';
+        } else {
+            this.showCustom = false;
+            this.customCount = '';
+            this.count = val;
+        }
+    },
+    get finalCount() {
+        if (this.count === 'custom') return parseInt(this.customCount) || 20;
+        return this.count;
+    },
     startQuiz() {
-        const params = new URLSearchParams({
-            mode: this.mode,
-            count: this.count,
-        });
+        if (this.count === 'custom' && (!this.customCount || parseInt(this.customCount) < 1)) {
+            alert('Sila masukkan bilangan soalan yang sah.');
+            return;
+        }
+        const params = new URLSearchParams({ mode: this.mode, count: this.finalCount });
         this.groups.forEach(g => params.append('groups[]', g));
         window.location.href = '/kuiz/main?' + params.toString();
     }
@@ -41,15 +58,24 @@
     {{-- Question Count --}}
     <div class="mb-6">
         <h2 class="font-semibold mb-3" style="color: #3D2C1E;">Bilangan Soalan</h2>
-        <div class="flex flex-wrap gap-2">
-            @foreach([5, 10, 20, 'all'] as $num)
-                <button @click="count = '{{ $num }}'"
+        <div class="flex flex-wrap gap-2 mb-3">
+            @foreach([10, 20, 30, 'all', 'custom'] as $num)
+                <button @click="setCount('{{ $num }}')"
                         class="px-4 py-2.5 rounded-xl font-medium border transition-all"
                         :style="count == '{{ $num }}' ? 'background-color: #C9A882; color: white; border-color: #C9A882;' : 'background-color: #F5F0EB; color: #3D2C1E; border-color: #E2D5C8;'"
                         style="min-height: 44px;">
-                    {{ $num === 'all' ? 'Semua' : $num }}
+                    @if($num === 'all') Semua
+                    @elseif($num === 'custom') Pilih sendiri
+                    @else {{ $num }}
+                    @endif
                 </button>
             @endforeach
+        </div>
+        <div x-show="showCustom" x-transition class="flex items-center gap-2">
+            <input type="number" x-model="customCount" min="1" max="100" placeholder="Contoh: 15"
+                   class="w-36 px-4 py-2.5 rounded-xl border text-sm font-medium outline-none"
+                   style="background-color: #F5F0EB; border-color: #C9A882; color: #3D2C1E;" />
+            <span class="text-xs" style="color: #8B6F5E;">soalan (max 100)</span>
         </div>
     </div>
 
