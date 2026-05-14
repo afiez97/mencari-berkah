@@ -12,6 +12,8 @@ Route::get('/kuiz', [HafalanController::class, 'quiz'])->name('quiz');
 Route::get('/kuiz/main', [HafalanController::class, 'quizPlay'])->name('quiz.play');
 Route::get('/keputusan', [HafalanController::class, 'result'])->name('result');
 Route::get('/statistik', [HafalanController::class, 'stats'])->name('stats');
+Route::get('/hafalan', [HafalanController::class, 'hafalan'])->name('hafalan');
+Route::get('/hafalan/sesi', [HafalanController::class, 'hafalanSesi'])->name('hafalan.sesi');
 
 Route::get('/tts', [TtsController::class, 'speak'])->name('tts');
 

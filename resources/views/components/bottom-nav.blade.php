@@ -1,9 +1,10 @@
 @php
 $tabs = [
-    ['route' => 'home',  'label' => 'Utama',    'icon' => '🏠'],
-    ['route' => 'learn', 'label' => 'Belajar',  'icon' => '📖'],
-    ['route' => 'quiz',  'label' => 'Kuiz',     'icon' => '✏️'],
-    ['route' => 'stats', 'label' => 'Statistik','icon' => '📊'],
+    ['route' => 'home',    'label' => 'Utama',    'icon' => '🏠'],
+    ['route' => 'learn',   'label' => 'Belajar',  'icon' => '📖'],
+    ['route' => 'hafalan', 'label' => 'Hafalan',  'icon' => '🧠'],
+    ['route' => 'quiz',    'label' => 'Kuiz',     'icon' => '✏️'],
+    ['route' => 'stats',   'label' => 'Statistik','icon' => '📊'],
 ];
 @endphp
 

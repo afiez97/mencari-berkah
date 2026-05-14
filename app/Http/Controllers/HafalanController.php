@@ -94,4 +94,22 @@ class HafalanController extends Controller
     {
         return view('stats.index');
     }
+
+    public function hafalan()
+    {
+        $groups = ArabicLetter::all()->groupBy('group_name');
+        $totalLetters = ArabicLetter::count();
+        return view('hafalan.index', compact('groups', 'totalLetters'));
+    }
+
+    public function hafalanSesi(Request $request)
+    {
+        $group = $request->get('group');
+        $query = ArabicLetter::query();
+        if ($group && $group !== 'all') {
+            $query->where('group_name', $group);
+        }
+        $letters = $query->orderBy('order_num')->get();
+        return view('hafalan.sesi', compact('letters'));
+    }
 }

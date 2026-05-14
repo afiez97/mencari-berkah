@@ -1,4 +1,4 @@
-<x-layouts.app title="{{ $letter->name }} — Belajar">
+<x-layouts.app title="{{ $letter->name }} — Kenali Huruf">
 
 <div x-data="{
     ...hafalanData(),
@@ -9,7 +9,7 @@
 }">
 
     {{-- Back --}}
-    <a href="{{ route('learn') }}" class="inline-flex items-center gap-1 text-sm mb-6" style="color: #C9A882;">← Kembali</a>
+    <a href="{{ route('learn') }}" class="inline-flex items-center gap-1 text-sm mb-6" style="color: #C9A882;">← Kenali Huruf</a>
 
     {{-- Main Letter Display --}}
     <div class="text-center mb-8">

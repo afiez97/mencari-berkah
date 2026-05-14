@@ -19,6 +19,7 @@
         <div class="flex gap-8">
             <a href="{{ route('home') }}" class="font-medium hover:text-[#A6845E] transition-colors {{ request()->routeIs('home') ? 'text-[#A6845E]' : 'text-[#8B6F5E]' }}">Utama</a>
             <a href="{{ route('learn') }}" class="font-medium hover:text-[#A6845E] transition-colors {{ request()->routeIs('learn*') ? 'text-[#A6845E]' : 'text-[#8B6F5E]' }}">Belajar</a>
+            <a href="{{ route('hafalan') }}" class="font-medium hover:text-[#A6845E] transition-colors {{ request()->routeIs('hafalan*') ? 'text-[#A6845E]' : 'text-[#8B6F5E]' }}">Hafalan</a>
             <a href="{{ route('quiz') }}" class="font-medium hover:text-[#A6845E] transition-colors {{ request()->routeIs('quiz*') ? 'text-[#A6845E]' : 'text-[#8B6F5E]' }}">Kuiz</a>
             <a href="{{ route('stats') }}" class="font-medium hover:text-[#A6845E] transition-colors {{ request()->routeIs('stats') ? 'text-[#A6845E]' : 'text-[#8B6F5E]' }}">Statistik</a>
         </div>
