@@ -47,9 +47,17 @@ class HafalanController extends Controller
         }
         $allLetters = $query->inRandomOrder()->get();
 
+        if ($allLetters->isEmpty()) {
+            return view('quiz.play', ['questions' => collect()]);
+        }
+
         if ($count !== 'all') {
-            $take = min((int)$count, $allLetters->count());
-            $allLetters = $allLetters->take($take);
+            $target = (int) $count;
+            $pool = collect();
+            while ($pool->count() < $target) {
+                $pool = $pool->concat($allLetters->shuffle());
+            }
+            $allLetters = $pool->take($target);
         }
 
         $questions = $allLetters->map(function ($letter) use ($mode) {
