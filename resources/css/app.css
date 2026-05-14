@@ -1,0 +1,49 @@
+@import 'tailwindcss';
+
+@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+@source '../../storage/framework/views/*.php';
+@source '../**/*.blade.php';
+@source '../**/*.js';
+
+@theme {
+    --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
+    --font-arabic: 'Amiri', serif;
+
+    --color-nude-50: #FAF7F4;
+    --color-nude-100: #F5F0EB;
+    --color-nude-200: #EDE0D0;
+    --color-nude-300: #E2D5C8;
+    --color-nude-400: #D4C4B0;
+    --color-nude-500: #C9A882;
+    --color-nude-600: #B8A090;
+    --color-nude-700: #A6845E;
+    --color-nude-800: #8B6F5E;
+    --color-nude-900: #3D2C1E;
+
+    --color-sage: #7A9E7E;
+    --color-terracotta: #C47B6A;
+    --color-amber-warm: #D4A853;
+}
+
+@keyframes fadeInScale {
+    from { opacity: 0; transform: scale(0.85); }
+    to { opacity: 1; transform: scale(1); }
+}
+.animate-letter { animation: fadeInScale 0.4s ease-out; }
+
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-6px); }
+    75% { transform: translateX(6px); }
+}
+.animate-shake { animation: shake 0.4s ease-in-out; }
+
+@keyframes slideDown {
+    from { opacity: 0; transform: translateY(-8px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+.animate-slide-down { animation: slideDown 0.3s ease-out; }
+
+.font-arabic {
+    font-family: 'Amiri', serif;
+}
