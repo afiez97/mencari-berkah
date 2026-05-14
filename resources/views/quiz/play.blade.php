@@ -109,7 +109,7 @@
                     <button @click="speakArabic(question.question)"
                             class="inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs border transition-all hover:opacity-80"
                             style="background-color: #EDE0D0; border-color: #C9A882; color: #A6845E;">
-                        🔊 Ulang sebutan — <span class="font-mono" x-text="question.transliteration"></span>
+                        🔊 Dengar sebutan
                     </button>
                 </div>
             </div>
