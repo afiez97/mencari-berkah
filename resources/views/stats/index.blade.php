@@ -18,7 +18,7 @@
                         style="transition: stroke-dashoffset 0.8s ease;"/>
             </svg>
             <div class="absolute text-center">
-                <div class="text-3xl font-bold" style="color: #3D2C1E;" x-text="stats.learned + '/28'"></div>
+                <div class="text-3xl font-bold" style="color: #3D2C1E;" x-text="stats.learned + '/' + stats.total"></div>
                 <div class="text-xs" style="color: #8B6F5E;">Dihafal</div>
             </div>
         </div>
@@ -30,7 +30,7 @@
             </div>
             <div class="rounded-2xl p-4 border text-center" style="background-color: #F5F0EB; border-color: #E2D5C8;">
                 <div class="text-2xl font-bold" style="color: #D4A853;" x-text="stats.review"></div>
-                <div class="text-xs" style="color: #8B6F5E;">Ulang</div>
+                <div class="text-xs" style="color: #8B6F5E;">Sedang Belajar</div>
             </div>
             <div class="rounded-2xl p-4 border text-center" style="background-color: #F5F0EB; border-color: #E2D5C8;">
                 <div class="text-2xl font-bold" style="color: #B8A090;" x-text="stats.newCount"></div>
@@ -38,6 +38,8 @@
             </div>
         </div>
     </div>
+
+    <p class="text-xs mb-6" style="color: #8B6F5E;">Huruf dikira <strong>hafal</strong> selepas anda berjaya mengingatnya dalam dua ulang kaji pada hari berbeza — bukan sekadar tekan butang.</p>
 
     {{-- Streak 7 Days --}}
     <div class="rounded-2xl p-5 border mb-6" style="background-color: #F5F0EB; border-color: #E2D5C8;">
@@ -65,7 +67,7 @@
                    class="rounded-xl p-3 border text-center transition-all hover:opacity-80"
                    style="background-color: #F5F0EB; border-color: #E2D5C8;"
                    x-data="{}"
-                   :style="getStatus({{ $letter->id }}) === 'learned' ? 'border-color: #7A9E7E;' : getStatus({{ $letter->id }}) === 'review' ? 'border-color: #D4A853;' : 'border-color: #E2D5C8;'">
+                   :style="getStatus({{ $letter->id }}) === 'learned' ? 'border-color: #7A9E7E; border-width: 2px;' : getStatus({{ $letter->id }}) === 'learning' ? 'border-color: #D4A853; border-width: 2px;' : 'border-color: #E2D5C8;'">
                     <div class="font-arabic text-2xl" style="color: #A6845E;">{{ $letter->arabic }}</div>
                     <div class="text-xs mt-1" style="color: #8B6F5E;">{{ $letter->name }}</div>
                 </a>
@@ -88,6 +90,8 @@
             </template>
         </div>
     </div>
+
+    <x-selaras-peranti class="mb-6" />
 
     {{-- Reset Button --}}
     <button @click="reset()"

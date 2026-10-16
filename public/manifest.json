@@ -1,0 +1,25 @@
+{
+    "name": "Hafal Huruf Hijaiyah",
+    "short_name": "Hijaiyah",
+    "description": "Hafal 28 huruf hijaiyah dan Hamzah dengan pelan 21 hari, flashcard dan kuiz.",
+    "lang": "ms",
+    "dir": "ltr",
+    "id": "/",
+    "start_url": "/",
+    "scope": "/",
+    "display": "standalone",
+    "orientation": "portrait",
+    "background_color": "#FAF7F4",
+    "theme_color": "#FAF7F4",
+    "categories": ["education"],
+    "icons": [
+        { "src": "/icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+        { "src": "/icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+        { "src": "/icons/maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+    ],
+    "shortcuts": [
+        { "name": "Pelan hari ini", "short_name": "Pelan", "url": "/pelan", "icons": [{ "src": "/icons/icon-192.png", "sizes": "192x192" }] },
+        { "name": "Sesi Hafalan", "short_name": "Hafalan", "url": "/hafalan/sesi?group=all", "icons": [{ "src": "/icons/icon-192.png", "sizes": "192x192" }] },
+        { "name": "Kuiz", "short_name": "Kuiz", "url": "/kuiz", "icons": [{ "src": "/icons/icon-192.png", "sizes": "192x192" }] }
+    ]
+}

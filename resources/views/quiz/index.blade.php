@@ -1,7 +1,7 @@
 <x-layouts.app title="Tetapkan Kuiz">
 
 <div x-data="{
-    mode: '{{ request('mode', 'mixed') }}',
+    mode: 'mixed',
     count: 20,
     customCount: '',
     showCustom: false,
@@ -44,7 +44,7 @@
     <div class="mb-6">
         <h2 class="font-semibold mb-3" style="color: #3D2C1E;">Pilih Mod</h2>
         <div class="flex flex-wrap gap-2">
-            @foreach(['name' => 'Teka Nama', 'letter' => 'Teka Huruf', 'mixed' => 'Campuran'] as $val => $label)
+            @foreach(['mixed' => 'Campuran', 'audio' => 'Dengar Bunyi', 'form' => 'Bentuk Sambung', 'name' => 'Teka Nama', 'letter' => 'Teka Huruf'] as $val => $label)
                 <button @click="mode = '{{ $val }}'"
                         class="px-4 py-2.5 rounded-xl font-medium border transition-all"
                         :style="mode === '{{ $val }}' ? 'background-color: #C9A882; color: white; border-color: #C9A882;' : 'background-color: #F5F0EB; color: #3D2C1E; border-color: #E2D5C8;'"
@@ -53,6 +53,13 @@
                 </button>
             @endforeach
         </div>
+        <p class="text-xs mt-2" style="color: #8B6F5E;" x-text="{
+            mixed: 'Gabungan semua mod — paling berkesan untuk ingatan jangka panjang.',
+            audio: 'Dengar sebutan, pilih huruf. Melatih kaitan bunyi ↔ bentuk.',
+            form: 'Kenal huruf dalam bentuk awal / tengah / akhir — seperti dalam perkataan sebenar.',
+            name: 'Lihat huruf, pilih nama.',
+            letter: 'Lihat nama, pilih huruf.',
+        }[mode]"></p>
     </div>
 
     {{-- Question Count --}}

@@ -19,7 +19,7 @@ class ArabicLetterSeeder extends Seeder
             ['order_num'=>1,'arabic'=>'ا','name'=>'Alif','sound'=>'/aː/','transliteration'=>'alif',
              'group_name'=>'straight_family','difficulty'=>1,
              'mnemonic'=>'ALIF itu lurus seperti orang berdiri tegak — huruf pertama, pemimpin abjad Arab!',
-             'visual_description'=>'Garisan lurus tegak, huruf paling ringkas dalam abjad Arab.',
+             'visual_description'=>'Garisan lurus tegak. Alif sendiri tiada bunyi — ia memanjangkan bunyi "a". Bunyi "a" di awal perkataan (أ) sebenarnya hamzah yang duduk di atas alif.',
              'form_isolated'=>'ا','form_initial'=>'ا','form_medial'=>'ـا','form_final'=>'ـا',
              'example_word'=>'أرنب','example_translation'=>'arnab','audio_url'=>null],
 
@@ -28,7 +28,7 @@ class ArabicLetterSeeder extends Seeder
             ['order_num'=>2,'arabic'=>'ب','name'=>'Ba','sound'=>'/b/','transliteration'=>'baa',
              'group_name'=>'dot_family','difficulty'=>1,
              'mnemonic'=>'Perahu BA-nyak dengan satu titik penambat di bawah — kalau titik di atas jadi TA-bung!',
-             'visual_description'=>'Garis melengkung seperti perahu terbalik dengan satu titik di bawah.',
+             'visual_description'=>'Badan mendatar seperti perahu (mangkuk cetek) dengan satu titik di bawah.',
              'form_isolated'=>'ب','form_initial'=>'بـ','form_medial'=>'ـبـ','form_final'=>'ـب',
              'example_word'=>'باص','example_translation'=>'bas','audio_url'=>null],
 
@@ -43,9 +43,9 @@ class ArabicLetterSeeder extends Seeder
 
             // ── 4. Tha ── dot_family ──────────────────────────────────────────
             // ثلاثة = tiga → "tiga" bermula dengan T (bunyi Tha hampir T) ✓
-            ['order_num'=>4,'arabic'=>'ث','name'=>'Tha','sound'=>'/θ/','transliteration'=>'thaa',
+            ['order_num'=>4,'arabic'=>'ث','name'=>'Tsa','sound'=>'/θ/','transliteration'=>'tsa',
              'group_name'=>'dot_family','difficulty'=>1,
-             'mnemonic'=>'THA-lji (salji) mempunyai TIGA titik di atas — serpihan salji yang jatuh ke atas perahu.',
+             'mnemonic'=>'TSA-lasah ertinya TIGA — ingat TIGA titik di atas perahu. Hujung lidah keluar sedikit di hujung gigi atas.',
              'visual_description'=>'Garis melengkung seperti perahu dengan tiga titik segitiga di atas.',
              'form_isolated'=>'ث','form_initial'=>'ثـ','form_medial'=>'ـثـ','form_final'=>'ـث',
              'example_word'=>'ثلاثة','example_translation'=>'tiga','audio_url'=>null],
@@ -61,19 +61,19 @@ class ArabicLetterSeeder extends Seeder
 
             // ── 6. Haa (berat) ── round_family ───────────────────────────────
             // حرف = huruf → "huruf" bermula dengan H seperti Haa ✓
-            ['order_num'=>6,'arabic'=>'ح','name'=>'Haa','sound'=>'/ħ/','transliteration'=>'Haa',
+            ['order_num'=>6,'arabic'=>'ح','name'=>'Ha (berat)','sound'=>'/ħ/','transliteration'=>'ha',
              'group_name'=>'round_family','difficulty'=>2,
-             'mnemonic'=>'HAA berat seperti orang HAMPIR pengsan — tunduk tanpa titik, nafasnya HAA HAA dari perut.',
+             'mnemonic'=>'HA berat tiada titik — seperti menghembus cermin supaya berkabus: bunyi dari TENGAH halkum, bersih tanpa garau.',
              'visual_description'=>'Kepala bulat dengan ekor melengkung ke bawah, tiada titik langsung.',
              'form_isolated'=>'ح','form_initial'=>'حـ','form_medial'=>'ـحـ','form_final'=>'ـح',
              'example_word'=>'حرف','example_translation'=>'huruf','audio_url'=>null],
 
             // ── 7. Kha ── round_family ────────────────────────────────────────
             // خيمة = khemah → "khemah" bermula dengan Kh seperti Kha ✓
-            ['order_num'=>7,'arabic'=>'خ','name'=>'Kha','sound'=>'/x/','transliteration'=>'khaa',
+            ['order_num'=>7,'arabic'=>'خ','name'=>'Kho','sound'=>'/x/','transliteration'=>'kho',
              'group_name'=>'round_family','difficulty'=>2,
-             'mnemonic'=>'KHA macam Haa tapi ada titik di atas — KHAYALAN orang ada idea, lampu (titik) menyala di kepala.',
-             'visual_description'=>'Sama seperti Haa tetapi dengan satu titik di atas kepala.',
+             'mnemonic'=>'KHO macam Ha berat tapi ada titik di atas kepala — bunyi garau dari hujung halkum, seperti dengkur kecil.',
+             'visual_description'=>'Sama seperti Ha (berat) tetapi dengan satu titik di atas kepala.',
              'form_isolated'=>'خ','form_initial'=>'خـ','form_medial'=>'ـخـ','form_final'=>'ـخ',
              'example_word'=>'خيمة','example_translation'=>'khemah','audio_url'=>null],
 
@@ -97,19 +97,19 @@ class ArabicLetterSeeder extends Seeder
 
             // ── 10. Ra ── straight_family ─────────────────────────────────────
             // رسالة = risalah → "risalah" bermula dengan R seperti Ra ✓
-            ['order_num'=>10,'arabic'=>'ر','name'=>'Ra','sound'=>'/r/','transliteration'=>'raa',
+            ['order_num'=>10,'arabic'=>'ر','name'=>'Ro','sound'=>'/r/','transliteration'=>'ro',
              'group_name'=>'straight_family','difficulty'=>1,
-             'mnemonic'=>'RA seperti kepala orang tunduk mengangguk setuju — RA RA RA, "ya saya setuju!"',
+             'mnemonic'=>'RO seperti kepala orang tunduk mengangguk — hujung lidah bergetar SEKALI sahaja, jangan berulang-ulang.',
              'visual_description'=>'Garisan dengan kepala condong lebih besar dan rendah dari Dal.',
              'form_isolated'=>'ر','form_initial'=>'ر','form_medial'=>'ـر','form_final'=>'ـر',
              'example_word'=>'رسالة','example_translation'=>'risalah','audio_url'=>null],
 
             // ── 11. Zay ── straight_family ────────────────────────────────────
             // زيتون = zaitun → "zaitun" bermula dengan Z seperti Zay ✓
-            ['order_num'=>11,'arabic'=>'ز','name'=>'Zay','sound'=>'/z/','transliteration'=>'zaay',
+            ['order_num'=>11,'arabic'=>'ز','name'=>'Zai','sound'=>'/z/','transliteration'=>'zai',
              'group_name'=>'straight_family','difficulty'=>1,
-             'mnemonic'=>'ZAY macam Ra tapi ada titik di atas — ZAman lampau orang simpan titik kenangan.',
-             'visual_description'=>'Sama seperti Ra dengan satu titik di atas.',
+             'mnemonic'=>'ZAI macam Ro tapi ada titik di atas — ZAIton (zaitun) sebiji di atas kepala. Bunyi berdesir seperti lebah.',
+             'visual_description'=>'Sama seperti Ro dengan satu titik di atas.',
              'form_isolated'=>'ز','form_initial'=>'ز','form_medial'=>'ـز','form_final'=>'ـز',
              'example_word'=>'زيتون','example_translation'=>'zaitun','audio_url'=>null],
 
@@ -124,38 +124,37 @@ class ArabicLetterSeeder extends Seeder
 
             // ── 13. Shin ── teeth_family ──────────────────────────────────────
             // شهادة = syahadah → "syahadah" bermula dengan Sy (= Sh) seperti Shin ✓
-            ['order_num'=>13,'arabic'=>'ش','name'=>'Shin','sound'=>'/ʃ/','transliteration'=>'shiin',
+            ['order_num'=>13,'arabic'=>'ش','name'=>'Syin','sound'=>'/ʃ/','transliteration'=>'syin',
              'group_name'=>'teeth_family','difficulty'=>2,
-             'mnemonic'=>'SHIN macam Sin tapi ada tiga titik di atas — bintang bertaburan di atas tiga gigi.',
+             'mnemonic'=>'SYIN macam Sin tapi ada tiga titik di atas — bintang bertaburan di atas tiga gigi. Angin tersembur: "sy".',
              'visual_description'=>'Tiga gundukan seperti Sin dengan tiga titik segitiga di atas.',
              'form_isolated'=>'ش','form_initial'=>'شـ','form_medial'=>'ـشـ','form_final'=>'ـش',
              'example_word'=>'شهادة','example_translation'=>'syahadah','audio_url'=>null],
 
             // ── 14. Sad ── teeth_family ───────────────────────────────────────
             // صبر = sabar → "sabar" bermula dengan S (emphatik) seperti Sad ✓
-            ['order_num'=>14,'arabic'=>'ص','name'=>'Sad','sound'=>'/sˤ/','transliteration'=>'saad',
+            ['order_num'=>14,'arabic'=>'ص','name'=>'Sod','sound'=>'/sˤ/','transliteration'=>'sod',
              'group_name'=>'teeth_family','difficulty'=>2,
-             'mnemonic'=>'SAD seperti beg besar yang penuh sesak — SAD-ang membawa beban berat, bunyi berat tekan tekak.',
-             'visual_description'=>'Bentuk oval besar seperti beg dengan ekor kecil di sebelah kanan.',
+             'mnemonic'=>'SOD seperti beg besar yang penuh sesak — bunyi TEBAL berdesir: lidah naik ke lelangit, mulut terasa penuh.',
+             'visual_description'=>'Gelung bujur seperti beg di kanan, satu gigi kecil, kemudian ekor mangkuk di kiri.',
              'form_isolated'=>'ص','form_initial'=>'صـ','form_medial'=>'ـصـ','form_final'=>'ـص',
              'example_word'=>'صبر','example_translation'=>'sabar','audio_url'=>null],
 
             // ── 15. Dad ── teeth_family ───────────────────────────────────────
-            // ضرب = derba → tiada padanan Malay D yang sesuai, guna perkataan mudah
-            // ضوء = daw' → tiada. Guna ضرب = pukul/derba kerana D ada dalam "derba"
-            ['order_num'=>15,'arabic'=>'ض','name'=>'Dad','sound'=>'/dˤ/','transliteration'=>'daad',
+            // ضعيف = daif → "daif" bermula dengan D seperti Dad ✓
+            ['order_num'=>15,'arabic'=>'ض','name'=>'Dhod','sound'=>'/dˤ/','transliteration'=>'dhod',
              'group_name'=>'teeth_family','difficulty'=>2,
-             'mnemonic'=>'DAD macam Sad tapi ada titik di atas — DAD ada tanda hitam, bunyi lebih berat dan dalam.',
-             'visual_description'=>'Sama seperti Sad dengan satu titik di atas badan huruf.',
+             'mnemonic'=>'DHOD macam Sod tapi ada titik di atas — tepi lidah menekan geraham atas, bunyi tebal dan memanjang.',
+             'visual_description'=>'Sama seperti Sod dengan satu titik di atas badan huruf.',
              'form_isolated'=>'ض','form_initial'=>'ضـ','form_medial'=>'ـضـ','form_final'=>'ـض',
-             'example_word'=>'ضرب','example_translation'=>'derba','audio_url'=>null],
+             'example_word'=>'ضعيف','example_translation'=>'daif (lemah)','audio_url'=>null],
 
             // ── 16. Tho ── misc ───────────────────────────────────────────────
             // طالب = talib → "talib" bermula dengan T seperti Tho ✓
-            ['order_num'=>16,'arabic'=>'ط','name'=>'Tho','sound'=>'/tˤ/','transliteration'=>'Taa',
+            ['order_num'=>16,'arabic'=>'ط','name'=>'Tha','sound'=>'/tˤ/','transliteration'=>'tho',
              'group_name'=>'misc','difficulty'=>3,
-             'mnemonic'=>'THO macam seorang lelaki berdiri tegak dalam dulang besar — THO yang berat dan kuat dari tekak.',
-             'visual_description'=>'Oval menegak seperti dulang dengan garisan lurus tegak di dalamnya.',
+             'mnemonic'=>'THA macam lelaki berdiri tegak di atas dulang — bunyi T yang TEBAL: hujung lidah ke pangkal gigi atas, lidah naik.',
+             'visual_description'=>'Gelung bujur mendatar seperti dulang dengan satu batang lurus tegak di atasnya.',
              'form_isolated'=>'ط','form_initial'=>'طـ','form_medial'=>'ـطـ','form_final'=>'ـط',
              'example_word'=>'طالب','example_translation'=>'talib','audio_url'=>null],
 
@@ -163,8 +162,8 @@ class ArabicLetterSeeder extends Seeder
             // ظهر = zuhur → "zuhur" bermula dengan Z seperti Zho ✓
             ['order_num'=>17,'arabic'=>'ظ','name'=>'Zho','sound'=>'/ðˤ/','transliteration'=>'Dhaa',
              'group_name'=>'misc','difficulty'=>3,
-             'mnemonic'=>'ZHO macam Tho tapi ada titik — ZHO-lim dengan titik tanda hitam di atas, bunyi lebih berat.',
-             'visual_description'=>'Sama seperti Tho dengan satu titik di atas garisan tegak.',
+             'mnemonic'=>'ZHO macam Tha tapi ada titik — bunyi Z tebal: hujung lidah di hujung gigi atas, lidah naik ke lelangit.',
+             'visual_description'=>'Sama seperti Tha dengan satu titik di atas gelung.',
              'form_isolated'=>'ظ','form_initial'=>'ظـ','form_medial'=>'ـظـ','form_final'=>'ـظ',
              'example_word'=>'ظهر','example_translation'=>'zuhur','audio_url'=>null],
 
@@ -187,20 +186,20 @@ class ArabicLetterSeeder extends Seeder
              'example_word'=>'غراب','example_translation'=>'gagak','audio_url'=>null],
 
             // ── 20. Fa ── tail_family ─────────────────────────────────────────
-            // فطر = fitrah → "fitrah" bermula dengan F seperti Fa ✓
+            // فطرة = fitrah → "fitrah" bermula dengan F seperti Fa ✓
             ['order_num'=>20,'arabic'=>'ف','name'=>'Fa','sound'=>'/f/','transliteration'=>'faa',
              'group_name'=>'tail_family','difficulty'=>2,
              'mnemonic'=>'FA macam muka bulat dengan satu mata titik di atas — FA-ces (muka) berkelip sebelah mata.',
-             'visual_description'=>'Kepala bulat besar dengan ekor kecil di kanan dan satu titik di atas.',
+             'visual_description'=>'Kepala bulat kecil di kanan, badan mendatar panjang ke kiri, satu titik di atas kepala.',
              'form_isolated'=>'ف','form_initial'=>'فـ','form_medial'=>'ـفـ','form_final'=>'ـف',
-             'example_word'=>'فطر','example_translation'=>'fitrah','audio_url'=>null],
+             'example_word'=>'فطرة','example_translation'=>'fitrah','audio_url'=>null],
 
             // ── 21. Qaf ── tail_family ────────────────────────────────────────
             // قرآن = Quran → "Quran" bermula dengan Q seperti Qaf ✓
             ['order_num'=>21,'arabic'=>'ق','name'=>'Qaf','sound'=>'/q/','transliteration'=>'qaaf',
              'group_name'=>'tail_family','difficulty'=>2,
              'mnemonic'=>'QAF macam mangkuk dalam dengan dua titik di atas — QAFtan (jubah) berhias dua butang.',
-             'visual_description'=>'Mangkuk dalam besar dengan ekor panjang ke bawah dan dua titik di atas.',
+             'visual_description'=>'Kepala bulat dengan ekor mangkuk dalam yang turun di bawah garisan, dua titik di atas. Fa pula ekornya mendatar.',
              'form_isolated'=>'ق','form_initial'=>'قـ','form_medial'=>'ـقـ','form_final'=>'ـق',
              'example_word'=>'قرآن','example_translation'=>'Quran','audio_url'=>null],
 
@@ -242,16 +241,16 @@ class ArabicLetterSeeder extends Seeder
 
             // ── 26. Ha (ringan) ── misc ───────────────────────────────────────
             // هلال = hilal → "hilal" bermula dengan H seperti Ha ✓
-            ['order_num'=>26,'arabic'=>'ه','name'=>'Ha','sound'=>'/h/','transliteration'=>'haa',
+            ['order_num'=>27,'arabic'=>'ه','name'=>'Ha (ringan)','sound'=>'/h/','transliteration'=>'ha',
              'group_name'=>'misc','difficulty'=>3,
-             'mnemonic'=>'HA ringan macam dua gelembung yang bergabung — HA HA ketawa sambil tiup gelembung sabun.',
-             'visual_description'=>'Dua bulatan bertindih yang berubah bentuk mengikut posisi dalam kalimah.',
+             'mnemonic'=>'HA ringan seperti nafas lega "hhh" — bunyi dari PANGKAL halkum (paling dalam), nipis dan lembut.',
+             'visual_description'=>'Bentuk bebas satu gelung bulat (ه). Bentuknya paling banyak berubah: awal هـ (dua gelung), tengah ـهـ, akhir ـه.',
              'form_isolated'=>'ه','form_initial'=>'هـ','form_medial'=>'ـهـ','form_final'=>'ـه',
              'example_word'=>'هلال','example_translation'=>'hilal','audio_url'=>null],
 
             // ── 27. Waw ── straight_family ────────────────────────────────────
             // وقت = waktu → "waktu" bermula dengan W seperti Waw ✓
-            ['order_num'=>27,'arabic'=>'و','name'=>'Waw','sound'=>'/w/','transliteration'=>'waaw',
+            ['order_num'=>26,'arabic'=>'و','name'=>'Waw','sound'=>'/w/','transliteration'=>'waw',
              'group_name'=>'straight_family','difficulty'=>1,
              'mnemonic'=>'WAW macam orang terkejut angkat kepala — "WAW!" kepala bulat dengan ekor terkulai.',
              'visual_description'=>'Kepala bulat kecil dengan ekor panjang menurun ke bawah kiri.',
@@ -260,7 +259,7 @@ class ArabicLetterSeeder extends Seeder
 
             // ── 28. Ya ── dot_family ──────────────────────────────────────────
             // يتيم = yatim → "yatim" bermula dengan Y seperti Ya ✓
-            ['order_num'=>28,'arabic'=>'ي','name'=>'Ya','sound'=>'/j/','transliteration'=>'yaa',
+            ['order_num'=>29,'arabic'=>'ي','name'=>'Ya','sound'=>'/j/','transliteration'=>'ya',
              'group_name'=>'dot_family','difficulty'=>1,
              'mnemonic'=>'YA seperti ular tidur sambil leperkan dua titik di bawah — "YA! Ada ular bawah sana!"',
              'visual_description'=>'Ekor panjang melengkung ke bawah dengan dua titik di bawah ekor.',
@@ -269,11 +268,11 @@ class ArabicLetterSeeder extends Seeder
 
             // ── 29. Hamzah ── misc (bonus) ────────────────────────────────────
             // أمل = harapan → "harapan" bermula dengan H/A (vokal seperti Hamzah) ✓
-            ['order_num'=>29,'arabic'=>'ء','name'=>'Hamzah','sound'=>'/ʔ/','transliteration'=>'hamza',
+            ['order_num'=>28,'arabic'=>'ء','name'=>'Hamzah','sound'=>'/ʔ/','transliteration'=>'hamza',
              'group_name'=>'misc','difficulty'=>3,
-             'mnemonic'=>'HAMZAH macam angka 2 yang kecil — HENTI sekejap, ada jeda bunyi seperti sebutan "a\'a\'air".',
-             'visual_description'=>'Tanda kecil melengkung seperti angka 2 atau kepala cacing.',
-             'form_isolated'=>'ء','form_initial'=>'أ','form_medial'=>'ئـ','form_final'=>'ئ',
+             'mnemonic'=>'HAMZAH macam kepala Ain yang kecil — HENTI sekejap di tekak, seperti hentian dalam sebutan "sa-at" atau "ra-ayat".',
+             'visual_description'=>'Tanda kecil seperti kepala Ain. Hamzah tidak bersambung; ia bersendirian (ء) atau duduk di atas "kerusi": alif (أ / إ), wau (ؤ) atau ya tanpa titik (ئ).',
+             'form_isolated'=>'ء','form_initial'=>'ء','form_medial'=>'ء','form_final'=>'ء',
              'example_word'=>'أمل','example_translation'=>'harapan','audio_url'=>null],
         ];
 

@@ -1,6 +1,7 @@
 @php
 $tabs = [
     ['route' => 'home',    'label' => 'Utama',    'icon' => '🏠'],
+    ['route' => 'plan',    'label' => 'Pelan',    'icon' => '📅'],
     ['route' => 'learn',   'label' => 'Belajar',  'icon' => '📖'],
     ['route' => 'hafalan', 'label' => 'Hafalan',  'icon' => '🧠'],
     ['route' => 'quiz',    'label' => 'Kuiz',     'icon' => '✏️'],

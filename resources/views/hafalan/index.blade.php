@@ -12,21 +12,19 @@ $groupLabels = [
 @endphp
 
 <div x-data="{
-    sm2: {},
-    init() {
-        try { this.sm2 = JSON.parse(localStorage.getItem('arabic_sm2') || '{}'); } catch { this.sm2 = {}; }
-    },
+    sm2: HafalanSRS.load(),
+    newPerSession: 5,
     dueCount(ids) {
-        const now = Date.now();
-        return ids.filter(id => {
-            const r = this.sm2[id];
-            return !r || r.nextReview <= now;
-        }).length;
+        return ids.filter(id => HafalanSRS.isDue(id, this.sm2)).length;
     },
-    totalDue() {
-        const now = Date.now();
-        return Object.values(this.sm2).filter(r => r.nextReview <= now).length
-             + ({{ $totalLetters }} - Object.keys(this.sm2).length);
+    newCount(ids) {
+        return ids.filter(id => !this.sm2[id]).length;
+    },
+    get dueTotal() {
+        return Object.values(this.sm2).filter(r => r.nextReview <= Date.now()).length;
+    },
+    get newToday() {
+        return Math.min(this.newPerSession, {{ $totalLetters }} - Object.keys(this.sm2).length);
     }
 }">
 
@@ -41,8 +39,8 @@ $groupLabels = [
        style="background-color: #EDE0D0; border-color: #C9A882;">
         <div>
             <div class="text-xs font-semibold mb-1" style="color: #A6845E;">PERLU DIULANG HARI INI</div>
-            <div class="text-3xl font-bold" style="color: #3D2C1E;" x-text="totalDue() + ' huruf'">...</div>
-            <div class="text-xs mt-1" style="color: #8B6F5E;">Tekan untuk mulakan sesi hafalan</div>
+            <div class="text-3xl font-bold" style="color: #3D2C1E;" x-text="(dueTotal + newToday) + ' kad'">...</div>
+            <div class="text-xs mt-1" style="color: #8B6F5E;"><span x-text="dueTotal"></span> ulang kaji + <span x-text="newToday"></span> huruf baru</div>
         </div>
         <div class="font-arabic text-5xl" style="color: #C9A882; opacity: 0.6;">ح</div>
     </a>
@@ -53,11 +51,11 @@ $groupLabels = [
         <div class="space-y-2">
             <div class="flex items-start gap-3">
                 <span class="text-lg">👁</span>
-                <div><span class="font-medium text-sm" style="color: #3D2C1E;">Lihat</span> <span class="text-sm" style="color: #8B6F5E;">— Huruf Arab ditunjukkan</span></div>
+                <div><span class="font-medium text-sm" style="color: #3D2C1E;">Lihat</span> <span class="text-sm" style="color: #8B6F5E;">— Huruf ditunjukkan (kadang-kadang dalam bentuk bersambung)</span></div>
             </div>
             <div class="flex items-start gap-3">
                 <span class="text-lg">🧠</span>
-                <div><span class="font-medium text-sm" style="color: #3D2C1E;">Ingat</span> <span class="text-sm" style="color: #8B6F5E;">— Cuba ingat sendiri nama dan sebutan</span></div>
+                <div><span class="font-medium text-sm" style="color: #3D2C1E;">Ingat</span> <span class="text-sm" style="color: #8B6F5E;">— Sebut nama huruf dengan kuat <em>sebelum</em> balik kad</span></div>
             </div>
             <div class="flex items-start gap-3">
                 <span class="text-lg">🔄</span>
@@ -85,7 +83,7 @@ $groupLabels = [
             </div>
             <div class="font-semibold text-sm mb-1" style="color: #3D2C1E;">{{ $groupLabels[$groupName] ?? $groupName }}</div>
             <div class="text-xs" style="color: #8B6F5E;">
-                <span x-text="dueCount({{ json_encode($ids) }}) + ' perlu diulang'">{{ count($ids) }} huruf</span>
+                <span x-text="dueCount({{ json_encode($ids) }}) + ' ulang · ' + newCount({{ json_encode($ids) }}) + ' baru'">{{ count($ids) }} huruf</span>
             </div>
         </a>
         @endforeach

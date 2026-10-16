@@ -1,12 +1,6 @@
 <x-layouts.app title="{{ $letter->name }} — Kenali Huruf">
 
-<div x-data="{
-    ...hafalanData(),
-    currentStatus: '',
-    init() {
-        this.currentStatus = this.getStatus({{ $letter->id }});
-    }
-}">
+<div x-data="{ currentStatus: HafalanSRS.status({{ $letter->id }}) }">
 
     {{-- Back --}}
     <a href="{{ route('learn') }}" class="inline-flex items-center gap-1 text-sm mb-6" style="color: #C9A882;">← Kenali Huruf</a>
@@ -39,8 +33,8 @@
         {{-- Status Badge --}}
         <div class="inline-flex items-center gap-2">
             <span class="px-3 py-1 rounded-full text-sm font-medium"
-                  :style="currentStatus === 'learned' ? 'background-color: #7A9E7E; color: white;' : currentStatus === 'review' ? 'background-color: #D4A853; color: white;' : 'background-color: #E2D5C8; color: #8B6F5E;'"
-                  x-text="currentStatus === 'learned' ? '✓ Hafal' : currentStatus === 'review' ? '↺ Ulang Kaji' : '● Baru'">Baru</span>
+                  :style="currentStatus === 'learned' ? 'background-color: #7A9E7E; color: white;' : currentStatus === 'learning' ? 'background-color: #D4A853; color: white;' : 'background-color: #E2D5C8; color: #8B6F5E;'"
+                  x-text="currentStatus === 'learned' ? '✓ Hafal' : currentStatus === 'learning' ? '↺ Sedang Belajar' : '● Baru'">Baru</span>
         </div>
     </div>
 
@@ -61,6 +55,12 @@
         <p class="text-sm italic" style="color: #8B6F5E;">{{ $letter->visual_description }}</p>
     </div>
 
+    <x-cara-sebut :letter="$letter" class="mb-6" />
+
+    <x-sebutan :letter="$letter" class="mb-6" />
+
+    <x-latih-tulis :letter="$letter" class="mb-6" />
+
     {{-- Example Word --}}
     <div class="rounded-xl p-5 border mb-6 flex items-center justify-between" style="background-color: #F5F0EB; border-color: #E2D5C8;">
         <div>
@@ -72,16 +72,16 @@
 
     {{-- Action Buttons --}}
     <div class="grid grid-cols-2 gap-3 mb-6">
-        <button @click="markLearned({{ $letter->id }}); currentStatus = 'learned'"
-                class="py-4 rounded-xl font-semibold text-white transition-opacity hover:opacity-90"
-                style="background-color: #7A9E7E; min-height: 52px;">
-            ✓ Saya Hafal!
-        </button>
-        <button @click="markReview({{ $letter->id }}); currentStatus = 'review'"
-                class="py-4 rounded-xl font-semibold border transition-all hover:opacity-80"
-                style="background-color: #F5F0EB; border-color: #E2D5C8; color: #3D2C1E; min-height: 52px;">
-            ↺ Ulang Lagi
-        </button>
+        <a href="{{ route('hafalan.sesi') }}?group={{ $letter->group_name }}"
+           class="py-4 rounded-xl font-semibold text-white text-center transition-opacity hover:opacity-90 flex items-center justify-center"
+           style="background-color: #7A9E7E; min-height: 52px;">
+            🧠 Uji Ingatan
+        </a>
+        <a href="{{ route('quiz.play') }}?mode=mixed&count=10&groups[]={{ $letter->group_name }}"
+           class="py-4 rounded-xl font-semibold border text-center transition-all hover:opacity-80 flex items-center justify-center"
+           style="background-color: #F5F0EB; border-color: #E2D5C8; color: #3D2C1E; min-height: 52px;">
+            ✏️ Kuiz Kumpulan
+        </a>
     </div>
 
     {{-- Prev / Next Navigation --}}
@@ -91,7 +91,7 @@
         @else
             <span></span>
         @endif
-        <span class="text-sm" style="color: #B8A090;">{{ $letter->order_num }}/28</span>
+        <span class="text-sm" style="color: #B8A090;">{{ $letter->order_num }}/{{ $totalLetters }}</span>
         @if($nextId)
             <a href="{{ route('learn.show', $nextId) }}" class="flex items-center gap-2 font-medium text-sm" style="color: #C9A882;">Seterusnya →</a>
         @else

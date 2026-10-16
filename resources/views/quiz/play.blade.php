@@ -4,6 +4,12 @@
     window._quizQuestions = @json($questions);
 </script>
 
+@if($questions->isEmpty())
+    <div class="text-center py-16">
+        <p style="color: #8B6F5E;">Tiada huruf untuk kuiz ini. Pilih sekurang-kurangnya satu kumpulan.</p>
+        <a href="{{ route('quiz') }}" class="inline-block mt-4 px-6 py-3 rounded-xl font-medium text-white" style="background-color: #A6845E;">← Tetapkan Kuiz</a>
+    </div>
+@else
 <div x-data="{
     questions: window._quizQuestions,
     current: 0,
@@ -16,34 +22,44 @@
 
     get question() { return this.questions[this.current]; },
     get progress() { return ((this.current + 1) / this.questions.length) * 100; },
+    get prompt() {
+        return {
+            name: 'Apakah nama huruf ini?',
+            letter: 'Pilih huruf yang betul',
+            audio: 'Dengar, kemudian pilih huruf yang disebut',
+            form: 'Huruf apakah ini? (bentuk ' + (this.question.form_label || '') + ')',
+        }[this.question.mode];
+    },
 
     init() {
         this.$nextTick(() => this.speakQuestion());
     },
 
+    // Hanya mod dengar mainkan bunyi sebelum jawab — mod lain akan bocorkan jawapan.
     speakQuestion() {
-        if (!this.soundEnabled) return;
-        if (this.question.mode === 'name') {
-            speakArabic(this.question.question);
-        }
+        if (this.question.mode === 'audio') speakArabic(this.question.arabic);
     },
 
     selectAnswer(opt) {
         if (this.answered) return;
         this.selectedAnswer = opt;
         this.answered = true;
-        const arabic = this.question.mode === 'name' ? this.question.question : this.question.answer;
+        if (this.soundEnabled) speakArabic(this.question.arabic);
+        HafalanSRS.markStudyDay();
+
         if (opt === this.question.answer) {
             this.score.correct++;
-            if (this.soundEnabled) speakArabic(arabic);
         } else {
             this.score.wrong++;
-            if (this.soundEnabled) speakArabic(arabic);
-            this.wrongAnswers.push({
-                arabic: this.question.mode === 'name' ? this.question.question : this.question.answer,
-                name: this.question.mode === 'name' ? this.question.answer : this.question.question,
-                mnemonic: this.question.mnemonic
-            });
+            HafalanSRS.lapse(this.question.id);
+            if (!this.wrongAnswers.some(w => w.id === this.question.id)) {
+                this.wrongAnswers.push({
+                    id: this.question.id,
+                    arabic: this.question.arabic,
+                    name: this.question.name,
+                    mnemonic: this.question.mnemonic,
+                });
+            }
         }
     },
 
@@ -69,9 +85,11 @@
                 duration,
                 wrongAnswers: this.wrongAnswers,
                 percentage: Math.round((this.score.correct / this.questions.length) * 100),
+                planDay: parseInt(new URLSearchParams(location.search).get('hari')) || null,
             };
+            if (result.planDay) HafalanPlan.markDone(result.planDay, result.percentage);
             sessionStorage.setItem('quiz_result', JSON.stringify(result));
-            if (window.hafalanData) hafalanData().saveQuiz(result);
+            hafalanData().saveQuiz(result);
             window.location.href = '/keputusan';
         }
     }
@@ -83,11 +101,10 @@
             <span>Soalan <span x-text="current + 1"></span> / <span x-text="questions.length"></span></span>
             <div class="flex items-center gap-3">
                 <span x-text="score.correct + ' betul'"></span>
-                {{-- Sound toggle --}}
                 <button @click="soundEnabled = !soundEnabled; if(!soundEnabled) window.speechSynthesis?.cancel()"
                         class="flex items-center gap-1 px-2 py-1 rounded-lg text-xs border transition-all"
                         :style="soundEnabled ? 'background-color: #EDE0D0; border-color: #C9A882; color: #A6845E;' : 'background-color: #F5F0EB; border-color: #E2D5C8; color: #B8A090;'"
-                        title="Toggle bunyi">
+                        title="Bunyi selepas jawab">
                     <span x-text="soundEnabled ? '🔊' : '🔇'"></span>
                 </button>
             </div>
@@ -99,38 +116,35 @@
 
     {{-- Question --}}
     <div class="text-center mb-8">
-        <template x-if="question.mode === 'name'">
-            <div>
-                <button @click="speakArabic(question.question)"
-                        class="font-arabic animate-letter cursor-pointer hover:opacity-75 active:scale-95 transition-transform"
-                        style="font-size: clamp(5rem, 18vw, 7rem); color: #A6845E; line-height: 1.3; background:none; border:none; padding:0;"
-                        x-text="question.question"></button>
-                <div class="mt-1">
-                    <button @click="speakArabic(question.question)"
-                            class="inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs border transition-all hover:opacity-80"
-                            style="background-color: #EDE0D0; border-color: #C9A882; color: #A6845E;">
-                        🔊 Dengar sebutan
-                    </button>
-                </div>
-            </div>
+        <template x-if="question.mode === 'name' || question.mode === 'form'">
+            <div class="font-arabic animate-letter select-none"
+                 style="font-size: clamp(5rem, 18vw, 7rem); color: #A6845E; line-height: 1.3;"
+                 x-text="question.question"></div>
         </template>
         <template x-if="question.mode === 'letter'">
             <div class="text-3xl font-bold py-6" style="color: #3D2C1E;" x-text="question.question"></div>
         </template>
-        <p class="text-sm mt-2" style="color: #8B6F5E;" x-text="question.mode === 'name' ? 'Apakah nama huruf ini?' : 'Pilih huruf yang betul'"></p>
+        <template x-if="question.mode === 'audio'">
+            <button @click="speakArabic(question.arabic)"
+                    class="w-28 h-28 rounded-full border-2 text-5xl my-4 transition-transform active:scale-95 hover:opacity-80"
+                    style="background-color: #EDE0D0; border-color: #C9A882;"
+                    title="Dengar semula">🔊</button>
+        </template>
+        <p x-show="question.mode === 'audio' && !answered" class="text-xs" style="color: #B8A090;">Tiada bunyi? Tekan 🔊 untuk dengar.</p>
+        <p class="text-sm mt-2" style="color: #8B6F5E;" x-text="prompt"></p>
     </div>
 
     {{-- Answer Options --}}
     <div class="grid grid-cols-2 gap-3 mb-6">
-        <template x-for="(opt, i) in question.options" :key="i">
+        <template x-for="(opt, i) in question.options" :key="current + '-' + i">
             <button @click="selectAnswer(opt)"
                     class="py-4 px-3 rounded-xl border font-medium transition-all text-center"
                     :style="optionStyle(opt)"
                     style="min-height: 64px;">
-                <template x-if="question.mode === 'letter'">
+                <template x-if="question.mode === 'letter' || question.mode === 'audio'">
                     <span class="font-arabic text-3xl" x-text="opt"></span>
                 </template>
-                <template x-if="question.mode === 'name'">
+                <template x-if="question.mode === 'name' || question.mode === 'form'">
                     <span x-text="opt"></span>
                 </template>
                 <template x-if="answered && opt === question.answer">
@@ -143,17 +157,23 @@
         </template>
     </div>
 
-    {{-- Mnemonic Hint + sound after answer --}}
+    {{-- Feedback after answer --}}
     <div x-show="answered" x-transition class="rounded-xl p-4 mb-6 animate-slide-down" style="background-color: #EDE0D0;">
-        <div class="flex items-center justify-between mb-1">
-            <span class="text-xs font-semibold" style="color: #A6845E;">💡 Cara Ingat</span>
-            <button @click="speakArabic(question.mode === 'name' ? question.question : question.answer)"
+        <div class="flex items-center justify-between mb-2">
+            <div class="flex items-center gap-3">
+                <span class="font-arabic text-3xl" style="color: #A6845E;" x-text="question.arabic"></span>
+                <span class="font-semibold" style="color: #3D2C1E;" x-text="question.name"></span>
+            </div>
+            <button @click="speakArabic(question.arabic)"
                     class="text-xs px-2 py-0.5 rounded-full border"
                     style="background-color: #F5F0EB; border-color: #C9A882; color: #A6845E;">
-                🔊 Dengar huruf
+                🔊 Dengar
             </button>
         </div>
         <p class="text-sm" style="color: #3D2C1E;" x-text="question.mnemonic"></p>
+        <p x-show="answered && selectedAnswer !== question.answer" class="text-xs mt-2" style="color: #C47B6A;">
+            Huruf ini dijadualkan untuk ulang kaji esok.
+        </p>
     </div>
 
     {{-- Next Button --}}
@@ -164,5 +184,6 @@
     </button>
 
 </div>
+@endif
 
 </x-layouts.app>

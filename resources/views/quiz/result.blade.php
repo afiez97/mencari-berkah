@@ -8,6 +8,11 @@
             this.result = JSON.parse(raw);
         }
     },
+    get retryUrl() {
+        const params = new URLSearchParams({ mode: 'mixed', count: 10 });
+        (this.result?.wrongAnswers || []).forEach(w => params.append('ids[]', w.id));
+        return '/kuiz/main?' + params.toString();
+    },
     get grade() {
         if (!this.result) return { label: '-', color: '#8B6F5E', text: '' };
         const p = this.result.percentage;
@@ -61,8 +66,22 @@
                             </div>
                         </template>
                     </div>
+                    <a x-show="result.wrongAnswers[0]?.id" :href="retryUrl"
+                       class="block w-full mt-4 py-3 rounded-xl font-semibold text-center border-2 transition-opacity hover:opacity-90"
+                       style="border-color: #C47B6A; color: #C47B6A;">
+                        Latih huruf yang salah sahaja →
+                    </a>
                 </div>
             </template>
+
+            <template x-if="result.planDay">
+                <a href="{{ route('plan') }}"
+                   class="block w-full mb-3 py-4 rounded-xl font-bold text-center text-white transition-opacity hover:opacity-90"
+                   style="background-color: #7A9E7E;"
+                   x-text="'✓ Hari ' + result.planDay + ' direkod — kembali ke Pelan →'"></a>
+            </template>
+
+            <x-nasihat tag="kuiz" class="mb-4 text-left" />
 
             {{-- Action Buttons --}}
             <div class="grid grid-cols-2 gap-3">

@@ -1,18 +1,7 @@
 <x-layouts.app title="Sesi Hafalan">
 
 <script>
-window._hafalanCards = @json($letters->map(fn($l) => [
-    'id'           => $l->id,
-    'arabic'       => $l->arabic,
-    'name'         => $l->name,
-    'transliteration' => $l->transliteration,
-    'sound'        => $l->sound,
-    'mnemonic'     => $l->mnemonic,
-    'visual'       => $l->visual_description,
-    'example_word' => $l->example_word,
-    'example_tr'   => $l->example_translation,
-    'form_isolated'=> $l->form_isolated,
-]));
+window._hafalanCards = @json($cards);
 </script>
 
 <style>
@@ -57,8 +46,10 @@ window._hafalanCards = @json($letters->map(fn($l) => [
             </div>
 
             <div class="text-sm p-4 rounded-xl mb-6" style="background-color: #EDE0D0; color: #8B6F5E;">
-                <span x-text="'Ulang kaji seterusnya: huruf \'' + (nextDue ? nextDue : 'tiada') + '\' dijadualkan'"></span>
+                <span x-text="nextDue ? 'Ulang kaji seterusnya: ' + nextDue : 'Tiada ulang kaji dijadualkan'"></span>
             </div>
+
+            <x-nasihat tag="sesi" class="mb-6 text-left max-w-md mx-auto" />
 
             <div class="flex gap-3 justify-center">
                 <a href="{{ route('hafalan') }}"
@@ -83,6 +74,7 @@ window._hafalanCards = @json($letters->map(fn($l) => [
                 <a href="{{ route('hafalan') }}" class="text-sm" style="color: #C9A882;">← Keluar</a>
                 <span class="text-sm font-medium" style="color: #8B6F5E;">
                     <span x-text="cardIndex + 1"></span> / <span x-text="queue.length"></span>
+                    <span x-show="card.isNew" class="ml-1 text-xs px-2 py-0.5 rounded-full" style="background:#EDE0D0;color:#A6845E;">baru</span>
                 </span>
                 <button @click="soundOn = !soundOn"
                         class="text-xs px-2 py-1 rounded-lg border"
@@ -106,8 +98,9 @@ window._hafalanCards = @json($letters->map(fn($l) => [
                          @click="flip()">
                         <div class="font-arabic mb-4 select-none"
                              style="font-size: clamp(6rem, 20vw, 9rem); color: #A6845E; line-height: 1.2;"
-                             x-text="card.arabic"></div>
-                        <div class="text-sm" style="color: #B8A090;">Tekan untuk balik kad →</div>
+                             x-text="card.front"></div>
+                        <div x-show="card.front !== card.arabic" class="text-xs mb-2" style="color: #A6845E;">bentuk bersambung</div>
+                        <div class="text-sm" style="color: #B8A090;">Sebut nama huruf dengan kuat, kemudian tekan →</div>
                     </div>
 
                     {{-- BACK --}}
@@ -127,9 +120,14 @@ window._hafalanCards = @json($letters->map(fn($l) => [
                             </button>
                         </div>
 
-                        {{-- Isolated form big --}}
-                        <div class="text-center mb-4">
-                            <span class="font-arabic text-5xl" style="color: #C9A882;" x-text="card.form_isolated"></span>
+                        {{-- All 4 forms: bebas / awal / tengah / akhir --}}
+                        <div class="grid grid-cols-4 gap-2 mb-4 text-center">
+                            <template x-for="(f, i) in card.all_forms" :key="i">
+                                <div class="rounded-lg py-1" :style="f === card.front ? 'background:#EDE0D0' : ''">
+                                    <div class="font-arabic text-3xl" style="color: #A6845E;" x-text="f"></div>
+                                    <div class="text-[10px]" style="color: #8B6F5E;" x-text="['bebas','awal','tengah','akhir'][i]"></div>
+                                </div>
+                            </template>
                         </div>
 
                         {{-- Mnemonic --}}
@@ -155,14 +153,14 @@ window._hafalanCards = @json($letters->map(fn($l) => [
                         style="background-color: rgba(196,123,106,0.12); border-color: #C47B6A; color: #C47B6A;">
                     <div class="text-lg mb-0.5">😟</div>
                     <div class="text-xs">Tak Ingat</div>
-                    <div class="text-xs opacity-60 mt-0.5">Ulang 1 hari</div>
+                    <div class="text-xs opacity-60 mt-0.5">Ulang sekarang</div>
                 </button>
                 <button @click="rate(3)"
                         class="py-4 rounded-xl font-semibold border-2 transition-all active:scale-95"
                         style="background-color: rgba(212,168,83,0.12); border-color: #D4A853; color: #D4A853;">
                     <div class="text-lg mb-0.5">🤔</div>
                     <div class="text-xs">Ragu-ragu</div>
-                    <div class="text-xs opacity-60 mt-0.5">Ulang 3 hari</div>
+                    <div class="text-xs opacity-60 mt-0.5" x-text="'Ulang ' + nextInterval(card.id, 3) + ' hari'"></div>
                 </button>
                 <button @click="rate(5)"
                         class="py-4 rounded-xl font-semibold border-2 transition-all active:scale-95"
@@ -175,7 +173,7 @@ window._hafalanCards = @json($letters->map(fn($l) => [
 
             {{-- Hint before flip --}}
             <div x-show="!flipped" class="text-center mt-4">
-                <p class="text-xs" style="color: #B8A090;">Cuba ingat nama dan sebutan huruf ini sebelum balik kad</p>
+                <p class="text-xs" style="color: #B8A090;">Jangan balik kad sebelum cuba ingat — usaha mengingat itulah yang menguatkan hafalan.</p>
             </div>
         </div>
     </template>
@@ -185,7 +183,7 @@ window._hafalanCards = @json($letters->map(fn($l) => [
         <div class="text-center py-16">
             <div class="text-5xl mb-4">🌙</div>
             <h2 class="text-xl font-bold mb-2" style="color: #3D2C1E;">Tiada yang perlu diulang</h2>
-            <p class="text-sm mb-6" style="color: #8B6F5E;">Semua huruf dalam kumpulan ini sudah dijadualkan untuk masa hadapan. Datang semula esok!</p>
+            <p class="text-sm mb-6" style="color: #8B6F5E;">Semua huruf dalam kumpulan ini sudah dijadualkan. Sementara itu, cuba kuiz Dengar Bunyi atau Bentuk Sambung.</p>
             <a href="{{ route('hafalan') }}"
                class="inline-block px-6 py-3 rounded-xl font-semibold text-white"
                style="background-color: #A6845E;">← Balik</a>
@@ -196,46 +194,35 @@ window._hafalanCards = @json($letters->map(fn($l) => [
 
 <script>
 function hafalanSesi() {
-    const SM2_KEY = 'arabic_sm2';
+    // Huruf baru setiap sesi dihadkan supaya tidak terbeban; ulang kaji sentiasa didahulukan.
+    const NEW_PER_SESSION = @json($newLimit);
+    // Dari pelan: hanya perkenalkan huruf hari ini (kosong = ikut susunan abjad).
+    const NEW_IDS = @json($newIds);
 
-    function loadSM2() {
-        try { return JSON.parse(localStorage.getItem(SM2_KEY) || '{}'); } catch { return {}; }
-    }
-    function saveSM2(data) {
-        localStorage.setItem(SM2_KEY, JSON.stringify(data));
-    }
-
-    // SM-2 algorithm
-    function sm2Update(record, quality) {
-        let { repetitions = 0, easiness = 2.5, interval = 1 } = record || {};
-        if (quality < 3) {
-            repetitions = 0;
-            interval = 1;
-        } else {
-            if (repetitions === 0) interval = 1;
-            else if (repetitions === 1) interval = 6;
-            else interval = Math.round(interval * easiness);
-            repetitions++;
+    function shuffle(arr) {
+        for (let i = arr.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [arr[i], arr[j]] = [arr[j], arr[i]];
         }
-        easiness = Math.max(1.3, easiness + 0.1 - (5 - quality) * (0.08 + (5 - quality) * 0.02));
-        const nextReview = Date.now() + interval * 86400000;
-        return { repetitions, easiness, interval, nextReview };
+        return arr;
     }
 
-    function isDue(id) {
-        const sm2 = loadSM2();
-        const r = sm2[id];
-        return !r || r.nextReview <= Date.now();
+    // Kad yang pernah dilihat diuji dalam bentuk bersambung secara rawak (awal/tengah/akhir)
+    // supaya hafalan tidak terikat pada bentuk bebas sahaja.
+    function withFront(card, isNew) {
+        const useForm = !isNew && card.forms.length > 0 && Math.random() < 0.5;
+        const front = useForm ? card.forms[Math.floor(Math.random() * card.forms.length)] : card.arabic;
+        return { ...card, front, isNew };
     }
 
     function buildQueue(cards) {
-        const due = cards.filter(c => isDue(c.id));
-        // Shuffle due cards
-        for (let i = due.length - 1; i > 0; i--) {
-            const j = Math.floor(Math.random() * (i + 1));
-            [due[i], due[j]] = [due[j], due[i]];
-        }
-        return due;
+        const sm2 = HafalanSRS.load();
+        const due = shuffle(cards.filter(c => HafalanSRS.isDue(c.id, sm2))).map(c => withFront(c, false));
+        const fresh = cards
+            .filter(c => !sm2[c.id] && (NEW_IDS.length === 0 || NEW_IDS.includes(c.id)))
+            .slice(0, NEW_PER_SESSION)
+            .map(c => withFront(c, true));
+        return [...due, ...fresh];
     }
 
     return {
@@ -250,11 +237,7 @@ function hafalanSesi() {
         get card() { return this.queue[this.cardIndex] || {}; },
 
         init() {
-            const allCards = window._hafalanCards || [];
-            this.queue = buildQueue(allCards);
-            if (this.queue.length > 0 && this.soundOn) {
-                this.$nextTick(() => speakArabic(this.queue[0].arabic));
-            }
+            this.queue = buildQueue(window._hafalanCards || []);
         },
 
         flip() {
@@ -264,64 +247,44 @@ function hafalanSesi() {
         },
 
         nextInterval(id, quality) {
-            const sm2 = loadSM2();
-            const updated = sm2Update(sm2[id], quality);
-            return updated.interval;
+            return HafalanSRS.previewInterval(id, quality);
         },
 
         rate(quality) {
-            const sm2 = loadSM2();
-            sm2[this.card.id] = sm2Update(sm2[this.card.id], quality);
-            saveSM2(sm2);
+            HafalanSRS.review(this.card.id, quality);
 
             if (quality >= 5) this.summary.hafal++;
             else if (quality >= 3) this.summary.ragu++;
             else this.summary.takIngat++;
 
-            // Cards rated < 3 go back into queue (requeue at end)
+            // Tak ingat → ulang dalam sesi yang sama, 3 kad kemudian (bukan terus di hujung).
             if (quality < 3) {
-                this.queue.push({ ...this.card });
+                const pos = Math.min(this.queue.length, this.cardIndex + 4);
+                this.queue.splice(pos, 0, withFront(this.card, false));
             }
 
             if (this.cardIndex + 1 >= this.queue.length) {
-                this.finishSession(sm2);
+                this.finishSession();
             } else {
                 this.cardIndex++;
                 this.flipped = false;
-                this.$nextTick(() => {
-                    if (this.soundOn) speakArabic(this.card.arabic);
-                });
             }
         },
 
-        finishSession(sm2) {
+        finishSession() {
             this.done = true;
-            // Find next due date
-            const upcoming = Object.values(sm2)
+            HafalanSRS.markStudyDay();
+            const upcoming = Object.values(HafalanSRS.load())
                 .map(r => r.nextReview)
                 .filter(t => t > Date.now())
                 .sort((a, b) => a - b);
             if (upcoming.length > 0) {
-                const d = new Date(upcoming[0]);
-                this.nextDue = d.toLocaleDateString('ms-MY', { weekday: 'long', day: 'numeric', month: 'long' });
-            }
-            // Update streak
-            const today = new Date().toDateString();
-            let streak = {};
-            try { streak = JSON.parse(localStorage.getItem('arabic_hafalan_streak') || '{}'); } catch {}
-            if (streak.lastDate !== today) {
-                const yesterday = new Date(Date.now() - 86400000).toDateString();
-                streak.count = streak.lastDate === yesterday ? (streak.count || 0) + 1 : 1;
-                streak.lastDate = today;
-                streak.history = streak.history || [];
-                if (!streak.history.includes(today)) streak.history.push(today);
-                localStorage.setItem('arabic_hafalan_streak', JSON.stringify(streak));
+                this.nextDue = new Date(upcoming[0]).toLocaleDateString('ms-MY', { weekday: 'long', day: 'numeric', month: 'long' });
             }
         },
 
         restart() {
-            const allCards = window._hafalanCards || [];
-            this.queue = buildQueue(allCards);
+            this.queue = buildQueue(window._hafalanCards || []);
             this.cardIndex = 0;
             this.flipped = false;
             this.done = false;

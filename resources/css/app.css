@@ -47,3 +47,5 @@
 .font-arabic {
     font-family: 'Amiri', serif;
 }
+
+[x-cloak] { display: none !important; }

@@ -1,0 +1,266 @@
+{
+  "source": "Lingua Libre / Wikimedia Commons",
+  "letters": [
+    {
+      "order": 1,
+      "letter": "ا",
+      "file": "/audio/huruf/01.mp3",
+      "speaker": "AlNatiq",
+      "license": "CC0",
+      "license_url": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+      "source_page": "https://commons.wikimedia.org/wiki/File:LL-Q13955_(ara)-AlNatiq-%D8%A7.wav"
+    },
+    {
+      "order": 2,
+      "letter": "ب",
+      "file": "/audio/huruf/02.mp3",
+      "speaker": "Zinou2go",
+      "license": "CC BY-SA 3.0",
+      "license_url": "https://creativecommons.org/licenses/by-sa/3.0",
+      "source_page": "https://commons.wikimedia.org/wiki/File:LL-Q13955_(ara)-Zinou2go-%D8%A8.wav"
+    },
+    {
+      "order": 3,
+      "letter": "ت",
+      "file": "/audio/huruf/03.mp3",
+      "speaker": "AlNatiq",
+      "license": "CC0",
+      "license_url": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+      "source_page": "https://commons.wikimedia.org/wiki/File:LL-Q13955_(ara)-AlNatiq-%D8%AA.wav"
+    },
+    {
+      "order": 4,
+      "letter": "ث",
+      "file": "/audio/huruf/04.mp3",
+      "speaker": "AlNatiq",
+      "license": "CC0",
+      "license_url": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+      "source_page": "https://commons.wikimedia.org/wiki/File:LL-Q13955_(ara)-AlNatiq-%D8%AB.wav"
+    },
+    {
+      "order": 5,
+      "letter": "ج",
+      "file": "/audio/huruf/05.mp3",
+      "speaker": "AlNatiq",
+      "license": "CC0",
+      "license_url": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+      "source_page": "https://commons.wikimedia.org/wiki/File:LL-Q13955_(ara)-AlNatiq-%D8%AC.wav"
+    },
+    {
+      "order": 6,
+      "letter": "ح",
+      "file": "/audio/huruf/06.mp3",
+      "speaker": "AlNatiq",
+      "license": "CC0",
+      "license_url": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+      "source_page": "https://commons.wikimedia.org/wiki/File:LL-Q13955_(ara)-AlNatiq-%D8%AD.wav"
+    },
+    {
+      "order": 7,
+      "letter": "خ",
+      "file": "/audio/huruf/07.mp3",
+      "speaker": "AlNatiq",
+      "license": "CC0",
+      "license_url": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+      "source_page": "https://commons.wikimedia.org/wiki/File:LL-Q13955_(ara)-AlNatiq-%D8%AE.wav"
+    },
+    {
+      "order": 8,
+      "letter": "د",
+      "file": "/audio/huruf/08.mp3",
+      "speaker": "Zinou2go",
+      "license": "CC BY-SA 3.0",
+      "license_url": "https://creativecommons.org/licenses/by-sa/3.0",
+      "source_page": "https://commons.wikimedia.org/wiki/File:LL-Q13955_(ara)-Zinou2go-%D8%AF.wav"
+    },
+    {
+      "order": 9,
+      "letter": "ذ",
+      "file": "/audio/huruf/09.mp3",
+      "speaker": "AlNatiq",
+      "license": "CC0",
+      "license_url": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+      "source_page": "https://commons.wikimedia.org/wiki/File:LL-Q13955_(ara)-AlNatiq-%D8%B0.wav"
+    },
+    {
+      "order": 10,
+      "letter": "ر",
+      "file": "/audio/huruf/10.mp3",
+      "speaker": "AlNatiq",
+      "license": "CC0",
+      "license_url": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+      "source_page": "https://commons.wikimedia.org/wiki/File:LL-Q13955_(ara)-AlNatiq-%D8%B1.wav"
+    },
+    {
+      "order": 11,
+      "letter": "ز",
+      "file": "/audio/huruf/11.mp3",
+      "speaker": "Zinou2go",
+      "license": "CC BY-SA 3.0",
+      "license_url": "https://creativecommons.org/licenses/by-sa/3.0",
+      "source_page": "https://commons.wikimedia.org/wiki/File:LL-Q13955_(ara)-Zinou2go-%D8%B2.wav"
+    },
+    {
+      "order": 12,
+      "letter": "س",
+      "file": "/audio/huruf/12.mp3",
+      "speaker": "AlNatiq",
+      "license": "CC0",
+      "license_url": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+      "source_page": "https://commons.wikimedia.org/wiki/File:LL-Q13955_(ara)-AlNatiq-%D8%B3.wav"
+    },
+    {
+      "order": 13,
+      "letter": "ش",
+      "file": "/audio/huruf/13.mp3",
+      "speaker": "AlNatiq",
+      "license": "CC0",
+      "license_url": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+      "source_page": "https://commons.wikimedia.org/wiki/File:LL-Q13955_(ara)-AlNatiq-%D8%B4.wav"
+    },
+    {
+      "order": 14,
+      "letter": "ص",
+      "file": "/audio/huruf/14.mp3",
+      "speaker": "AlNatiq",
+      "license": "CC0",
+      "license_url": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+      "source_page": "https://commons.wikimedia.org/wiki/File:LL-Q13955_(ara)-AlNatiq-%D8%B5.wav"
+    },
+    {
+      "order": 15,
+      "letter": "ض",
+      "file": "/audio/huruf/15.mp3",
+      "speaker": "AlNatiq",
+      "license": "CC0",
+      "license_url": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+      "source_page": "https://commons.wikimedia.org/wiki/File:LL-Q13955_(ara)-AlNatiq-%D8%B6.wav"
+    },
+    {
+      "order": 16,
+      "letter": "ط",
+      "file": "/audio/huruf/16.mp3",
+      "speaker": "AlNatiq",
+      "license": "CC0",
+      "license_url": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+      "source_page": "https://commons.wikimedia.org/wiki/File:LL-Q13955_(ara)-AlNatiq-%D8%B7.wav"
+    },
+    {
+      "order": 17,
+      "letter": "ظ",
+      "file": "/audio/huruf/17.mp3",
+      "speaker": "Rashed Aljahdali",
+      "license": "CC BY 4.0",
+      "license_url": "https://creativecommons.org/licenses/by/4.0",
+      "source_page": "https://commons.wikimedia.org/wiki/File:LL-Q13955_(ara)-Rashed_Aljahdali-%D8%B8.wav"
+    },
+    {
+      "order": 18,
+      "letter": "ع",
+      "file": "/audio/huruf/18.mp3",
+      "speaker": "AlNatiq",
+      "license": "CC0",
+      "license_url": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+      "source_page": "https://commons.wikimedia.org/wiki/File:LL-Q13955_(ara)-AlNatiq-%D8%B9.wav"
+    },
+    {
+      "order": 19,
+      "letter": "غ",
+      "file": "/audio/huruf/19.mp3",
+      "speaker": "AlNatiq",
+      "license": "CC0",
+      "license_url": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+      "source_page": "https://commons.wikimedia.org/wiki/File:LL-Q13955_(ara)-AlNatiq-%D8%BA.wav"
+    },
+    {
+      "order": 20,
+      "letter": "ف",
+      "file": "/audio/huruf/20.mp3",
+      "speaker": "AlNatiq",
+      "license": "CC0",
+      "license_url": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+      "source_page": "https://commons.wikimedia.org/wiki/File:LL-Q13955_(ara)-AlNatiq-%D9%81.wav"
+    },
+    {
+      "order": 21,
+      "letter": "ق",
+      "file": "/audio/huruf/21.mp3",
+      "speaker": "AlNatiq",
+      "license": "CC0",
+      "license_url": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+      "source_page": "https://commons.wikimedia.org/wiki/File:LL-Q13955_(ara)-AlNatiq-%D9%82.wav"
+    },
+    {
+      "order": 22,
+      "letter": "ك",
+      "file": "/audio/huruf/22.mp3",
+      "speaker": "AlNatiq",
+      "license": "CC0",
+      "license_url": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+      "source_page": "https://commons.wikimedia.org/wiki/File:LL-Q13955_(ara)-AlNatiq-%D9%83.wav"
+    },
+    {
+      "order": 23,
+      "letter": "ل",
+      "file": "/audio/huruf/23.mp3",
+      "speaker": "AlNatiq",
+      "license": "CC0",
+      "license_url": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+      "source_page": "https://commons.wikimedia.org/wiki/File:LL-Q13955_(ara)-AlNatiq-%D9%84.wav"
+    },
+    {
+      "order": 24,
+      "letter": "م",
+      "file": "/audio/huruf/24.mp3",
+      "speaker": "AlNatiq",
+      "license": "CC0",
+      "license_url": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+      "source_page": "https://commons.wikimedia.org/wiki/File:LL-Q13955_(ara)-AlNatiq-%D9%85.wav"
+    },
+    {
+      "order": 25,
+      "letter": "ن",
+      "file": "/audio/huruf/25.mp3",
+      "speaker": "AlNatiq",
+      "license": "CC0",
+      "license_url": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+      "source_page": "https://commons.wikimedia.org/wiki/File:LL-Q13955_(ara)-AlNatiq-%D9%86.wav"
+    },
+    {
+      "order": 26,
+      "letter": "و",
+      "file": "/audio/huruf/26.mp3",
+      "speaker": "Zinou2go",
+      "license": "CC BY-SA 3.0",
+      "license_url": "https://creativecommons.org/licenses/by-sa/3.0",
+      "source_page": "https://commons.wikimedia.org/wiki/File:LL-Q13955_(ara)-Zinou2go-%D9%88.wav"
+    },
+    {
+      "order": 27,
+      "letter": "ه",
+      "file": "/audio/huruf/27.mp3",
+      "speaker": "AlNatiq",
+      "license": "CC0",
+      "license_url": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+      "source_page": "https://commons.wikimedia.org/wiki/File:LL-Q13955_(ara)-AlNatiq-%D9%87.wav"
+    },
+    {
+      "order": 28,
+      "letter": "ء",
+      "file": "/audio/huruf/28.mp3",
+      "speaker": "Rashed Aljahdali",
+      "license": "CC BY 4.0",
+      "license_url": "https://creativecommons.org/licenses/by/4.0",
+      "source_page": "https://commons.wikimedia.org/wiki/File:LL-Q13955_(ara)-Rashed_Aljahdali-%D9%87%D9%85%D8%B2%D8%A9.wav"
+    },
+    {
+      "order": 29,
+      "letter": "ي",
+      "file": "/audio/huruf/29.mp3",
+      "speaker": "AlNatiq",
+      "license": "CC0",
+      "license_url": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+      "source_page": "https://commons.wikimedia.org/wiki/File:LL-Q13955_(ara)-AlNatiq-%D9%8A.wav"
+    }
+  ]
+}

@@ -1,19 +1,12 @@
-@props(['letter', 'status' => 'new'])
-
-@php
-$dotColor = match($status) {
-    'learned' => '#7A9E7E',
-    'review'  => '#D4A853',
-    default   => '#B8A090',
-};
-@endphp
+@props(['letter'])
 
 <a href="{{ route('learn.show', $letter->id) }}"
    class="relative rounded-xl border p-4 flex flex-col items-center text-center transition-all hover:scale-[1.04] hover:opacity-90 block"
    style="background-color: #F5F0EB; border-color: #E2D5C8;">
 
     {{-- Status dot --}}
-    <span class="absolute top-2 right-2 w-2.5 h-2.5 rounded-full" style="background-color: {{ $dotColor }};"></span>
+    <span class="absolute top-2 right-2 w-2.5 h-2.5 rounded-full"
+          :style="'background-color: ' + ({ learned: '#7A9E7E', learning: '#D4A853' }[getStatus({{ $letter->id }})] || '#B8A090')"></span>
 
     {{-- Arabic letter --}}
     <span class="font-arabic text-4xl mb-1" style="color: #A6845E;">{{ $letter->arabic }}</span>
