@@ -9,7 +9,7 @@
     <div class="text-center mb-8">
         <button @click="speakArabic('{{ $letter->arabic }}')"
                 class="font-arabic animate-letter inline-block mb-2 cursor-pointer transition-transform active:scale-95 hover:opacity-80 select-none"
-                style="font-size: clamp(6rem, 18vw, 10rem); color: #A6845E; line-height: 1.2; background: none; border: none; padding: 0;"
+                style="font-size: clamp(6rem, 18vw, 10rem); color: {{ $letter->family_color }}; line-height: 1.2; background: none; border: none; padding: 0;"
                 title="Tekan untuk dengar sebutan">{{ $letter->arabic }}</button>
 
         {{-- Sound button with transliteration hint --}}
@@ -25,10 +25,12 @@
             </button>
         </div>
 
-        <div class="flex items-center justify-center gap-4 mb-3">
+        <div class="flex items-center justify-center gap-4 mb-1">
             <h1 class="text-2xl font-bold" style="color: #3D2C1E;">{{ $letter->name }}</h1>
             <span class="text-lg" style="color: #8B6F5E;">{{ $letter->sound }}</span>
         </div>
+
+        <div class="text-xs mb-3" style="color: {{ $letter->family_color }};">● {{ $letter->group_label }}</div>
 
         {{-- Status Badge --}}
         <div class="inline-flex items-center gap-2">

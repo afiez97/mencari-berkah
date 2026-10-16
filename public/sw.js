@@ -4,7 +4,7 @@
 // Aset & bunyi : cache-first (fail Vite ber-hash dan sebutan huruf tidak berubah).
 // Naikkan VERSION bila strategi cache berubah.
 
-const VERSION = 'v5';
+const VERSION = 'v6';
 const CACHE = `hijaiyah-${VERSION}`;
 
 const CORE_PAGES = [
@@ -40,7 +40,7 @@ self.addEventListener('install', (event) => {
         const extras = [
             ...Array.from({ length: 29 }, (_, i) => `/belajar/${i + 1}`),
             ...(await audioFiles()),
-            '/baris', '/kredit',
+            '/baris', '/kredit', '/kilat', '/latihan',
         ];
         await Promise.allSettled(extras.map(url => cache.add(url)));
 

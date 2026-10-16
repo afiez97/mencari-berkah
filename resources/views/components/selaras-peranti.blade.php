@@ -69,5 +69,5 @@
         </div>
     </template>
 
-    <p x-show="message" class="text-xs mt-3" :style="error ? 'color:#C47B6A' : 'color:#4F7353'" x-text="message"></p>
+    <p x-show="message" class="text-xs mt-3" :style="{ color: error ? '#C47B6A' : '#4F7353' }" x-text="message"></p>
 </div>

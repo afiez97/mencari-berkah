@@ -56,6 +56,12 @@ class StudyPlan
         'tip' => 'Sasaran 95%. Jika lulus, anda sudah bersedia untuk peringkat seterusnya: baris (fathah, kasrah, dammah).',
     ];
 
+    /** Susunan huruf diperkenalkan (ikut keluarga bentuk). */
+    public static function introOrder(): array
+    {
+        return array_merge(...array_column(self::INTRO, 'letters'));
+    }
+
     /**
      * @param  Collection  $letters  semua ArabicLetter
      */

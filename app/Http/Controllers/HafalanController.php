@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\ArabicLetter;
 use App\Support\LetterFamilies;
+use App\Support\LetterPayload;
 use App\Support\StudyPlan;
 use Carbon\CarbonImmutable;
 use Illuminate\Http\Request;
@@ -12,8 +13,62 @@ class HafalanController extends Controller
 {
     public function home()
     {
-        $plan = StudyPlan::days(ArabicLetter::all());
-        return view('home', compact('plan'));
+        return view('home', ['letters' => LetterPayload::all(), 'legend' => LetterPayload::legend()]);
+    }
+
+    /** Sesi Kilat 5 minit — satu butang, semua jenis latihan bercampur. */
+    public function kilat()
+    {
+        return view('kilat.index', [
+            'letters' => LetterPayload::all(),
+            'lookalikes' => LetterFamilies::LOOKALIKES,
+            'soundalikes' => LetterFamilies::SOUNDALIKES,
+        ]);
+    }
+
+    public function latihan()
+    {
+        return view('latihan.index');
+    }
+
+    /**
+     * Peringatan berulang setiap hari (RRULE) pada beberapa waktu — sesuai untuk sesi pendek 5 minit.
+     */
+    public function reminders(Request $request)
+    {
+        $validated = $request->validate([
+            'masa' => 'required|array|min:1|max:4',
+            'masa.*' => ['required', 'regex:/^([01]\d|2[0-3]):[0-5]\d$/'],
+            'mula' => 'nullable|date_format:Y-m-d',
+        ]);
+
+        $start = $validated['mula'] ?? now()->format('Y-m-d');
+        $url = route('kilat');
+        $stamp = now()->utc()->format('Ymd\THis\Z');
+        $lines = ['BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//Hafal Huruf Arab//Peringatan//MS', 'CALSCALE:GREGORIAN', 'METHOD:PUBLISH', 'X-WR-CALNAME:Hijaiyah 5 minit'];
+
+        foreach (array_unique($validated['masa']) as $time) {
+            $begin = CarbonImmutable::createFromFormat('Y-m-d H:i', $start.' '.$time);
+            array_push($lines,
+                'BEGIN:VEVENT',
+                'UID:hijaiyah-kilat-'.str_replace(':', '', $time).'@'.$request->getHost(),
+                'DTSTAMP:'.$stamp,
+                'DTSTART:'.$begin->format('Ymd\THis'),
+                'DTEND:'.$begin->addMinutes(5)->format('Ymd\THis'),
+                'RRULE:FREQ=DAILY;COUNT=60',
+                'SUMMARY:'.$this->icsEscape('🕌 Hijaiyah 5 minit'),
+                'DESCRIPTION:'.$this->icsEscape("Satu sesi kilat — buka: {$url}"),
+                'URL:'.$url,
+                'BEGIN:VALARM', 'ACTION:DISPLAY', 'DESCRIPTION:'.$this->icsEscape('Masa untuk 5 minit hijaiyah'), 'TRIGGER:PT0M', 'END:VALARM',
+                'END:VEVENT',
+            );
+        }
+        $lines[] = 'END:VCALENDAR';
+
+        return response(implode("\r\n", array_map([$this, 'icsFold'], $lines))."\r\n", 200, [
+            'Content-Type' => 'text/calendar; charset=utf-8',
+            'Content-Disposition' => 'attachment; filename="peringatan-hijaiyah.ics"',
+        ]);
     }
 
     public function credits()

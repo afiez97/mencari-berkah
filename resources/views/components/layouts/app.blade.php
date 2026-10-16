@@ -29,12 +29,9 @@
     <nav class="hidden lg:flex items-center justify-between px-8 py-4 border-b" style="background-color: #F5F0EB; border-color: #E2D5C8;">
         <a href="{{ route('home') }}" class="font-arabic text-3xl font-bold" style="color: #A6845E;">حروف</a>
         <div class="flex gap-8">
-            <a href="{{ route('home') }}" class="font-medium hover:text-[#A6845E] transition-colors {{ request()->routeIs('home') ? 'text-[#A6845E]' : 'text-[#8B6F5E]' }}">Utama</a>
-            <a href="{{ route('plan') }}" class="font-medium hover:text-[#A6845E] transition-colors {{ request()->routeIs('plan*') ? 'text-[#A6845E]' : 'text-[#8B6F5E]' }}">Pelan</a>
-            <a href="{{ route('learn') }}" class="font-medium hover:text-[#A6845E] transition-colors {{ request()->routeIs('learn*') ? 'text-[#A6845E]' : 'text-[#8B6F5E]' }}">Belajar</a>
-            <a href="{{ route('hafalan') }}" class="font-medium hover:text-[#A6845E] transition-colors {{ request()->routeIs('hafalan*') ? 'text-[#A6845E]' : 'text-[#8B6F5E]' }}">Hafalan</a>
-            <a href="{{ route('quiz') }}" class="font-medium hover:text-[#A6845E] transition-colors {{ request()->routeIs('quiz*') ? 'text-[#A6845E]' : 'text-[#8B6F5E]' }}">Kuiz</a>
-            <a href="{{ route('stats') }}" class="font-medium hover:text-[#A6845E] transition-colors {{ request()->routeIs('stats') ? 'text-[#A6845E]' : 'text-[#8B6F5E]' }}">Statistik</a>
+            @foreach([['home', 'Utama', ['home', 'kilat']], ['learn', 'Huruf', ['learn*', 'credits']], ['latihan', 'Latihan', ['latihan', 'quiz*', 'result', 'hafalan*', 'baris*', 'plan*']], ['stats', 'Kemajuan', ['stats']]] as [$r, $label, $active])
+                <a href="{{ route($r) }}" class="font-medium hover:text-[#A6845E] transition-colors {{ request()->routeIs(...$active) ? 'text-[#A6845E]' : 'text-[#8B6F5E]' }}">{{ $label }}</a>
+            @endforeach
         </div>
     </nav>
 

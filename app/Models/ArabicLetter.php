@@ -41,6 +41,24 @@ class ArabicLetter extends Model
             . '&tl=ar&client=tw-ob&ttsspeed=0.8';
     }
 
+    /**
+     * Warna tetap bagi setiap keluarga huruf — isyarat visual supaya bentuk serupa
+     * diingat sebagai satu kumpulan (biru = titik, ungu = gigi, …).
+     */
+    public const FAMILY_COLORS = [
+        'dot_family' => '#2F6FA8',
+        'round_family' => '#B5552B',
+        'straight_family' => '#3F7A47',
+        'teeth_family' => '#7A4FA0',
+        'tail_family' => '#9A6A1F',
+        'misc' => '#A23E63',
+    ];
+
+    public function getFamilyColorAttribute(): string
+    {
+        return self::FAMILY_COLORS[$this->group_name] ?? '#A6845E';
+    }
+
     public function getGroupLabelAttribute(): string
     {
         return match($this->group_name) {

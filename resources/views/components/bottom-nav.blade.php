@@ -1,11 +1,10 @@
 @php
+// 4 tab sahaja — kurang pilihan, lebih mudah tahu apa nak tekan.
 $tabs = [
-    ['route' => 'home',    'label' => 'Utama',    'icon' => '🏠'],
-    ['route' => 'plan',    'label' => 'Pelan',    'icon' => '📅'],
-    ['route' => 'learn',   'label' => 'Belajar',  'icon' => '📖'],
-    ['route' => 'hafalan', 'label' => 'Hafalan',  'icon' => '🧠'],
-    ['route' => 'quiz',    'label' => 'Kuiz',     'icon' => '✏️'],
-    ['route' => 'stats',   'label' => 'Statistik','icon' => '📊'],
+    ['route' => 'home',    'label' => 'Utama',    'icon' => '🏠', 'active' => ['home', 'kilat']],
+    ['route' => 'learn',   'label' => 'Huruf',    'icon' => '🎴', 'active' => ['learn*', 'credits']],
+    ['route' => 'latihan', 'label' => 'Latihan',  'icon' => '🎯', 'active' => ['latihan', 'quiz*', 'result', 'hafalan*', 'baris*', 'plan*']],
+    ['route' => 'stats',   'label' => 'Kemajuan', 'icon' => '📈', 'active' => ['stats']],
 ];
 @endphp
 
@@ -13,7 +12,7 @@ $tabs = [
     @foreach($tabs as $tab)
         <a href="{{ route($tab['route']) }}"
            class="flex-1 flex flex-col items-center py-3 text-xs font-medium transition-colors"
-           style="color: {{ request()->routeIs($tab['route']) || request()->routeIs($tab['route'].'*') ? '#A6845E' : '#B8A090' }};">
+           style="color: {{ request()->routeIs(...$tab['active']) ? '#A6845E' : '#B8A090' }};">
             <span class="text-lg mb-0.5">{{ $tab['icon'] }}</span>
             {{ $tab['label'] }}
         </a>

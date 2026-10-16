@@ -18,7 +18,7 @@ class HafalanTest extends TestCase
 
     public function test_main_pages_render(): void
     {
-        foreach (['/', '/pelan', '/belajar', '/belajar/1', '/hafalan', '/hafalan/sesi?group=all', '/kuiz', '/statistik', '/keputusan'] as $url) {
+        foreach (['/', '/kilat', '/latihan', '/pelan', '/belajar', '/belajar/1', '/hafalan', '/hafalan/sesi?group=all', '/kuiz', '/statistik', '/keputusan'] as $url) {
             $this->get($url)->assertOk();
         }
     }
@@ -95,5 +95,33 @@ class HafalanTest extends TestCase
     public function test_plan_calendar_rejects_bad_input(): void
     {
         $this->get('/pelan.ics?mula=esok&masa=25:00')->assertRedirect();
+    }
+
+    public function test_kilat_page_ships_letters_in_plan_order_with_family_colours(): void
+    {
+        $letters = collect($this->get('/kilat')->assertOk()->viewData('letters'));
+
+        $this->assertCount(29, $letters);
+        $first = $letters->sortBy('plan')->take(4)->pluck('arabic')->all();
+        $this->assertSame(['ا', 'ب', 'ت', 'ث'], $first);
+        $this->assertSame('#2F6FA8', $letters->firstWhere('arabic', 'ب')['color']); // keluarga titik = biru
+        $this->assertSame([], $letters->firstWhere('arabic', 'ء')['forms']);        // hamzah tiada bentuk sambung
+    }
+
+    public function test_daily_reminders_repeat_at_each_chosen_time(): void
+    {
+        $body = $this->get('/peringatan.ics?masa[]=08:00&masa[]=21:30&mula=2026-10-17')->assertOk()->getContent();
+
+        $this->assertSame(2, substr_count($body, 'BEGIN:VEVENT'));
+        $this->assertSame(2, substr_count($body, 'RRULE:FREQ=DAILY;COUNT=60'));
+        $this->assertStringContainsString('DTSTART:20261017T080000', $body);
+        $this->assertStringContainsString('DTSTART:20261017T213000', $body);
+        $this->assertStringContainsString('/kilat', $body);
+    }
+
+    public function test_daily_reminders_validate_times(): void
+    {
+        $this->get('/peringatan.ics?masa[]=99:00')->assertRedirect();
+        $this->get('/peringatan.ics')->assertRedirect();
     }
 }

@@ -9,7 +9,7 @@
           :style="'background-color: ' + ({ learned: '#7A9E7E', learning: '#D4A853' }[getStatus({{ $letter->id }})] || '#B8A090')"></span>
 
     {{-- Arabic letter --}}
-    <span class="font-arabic text-4xl mb-1" style="color: #A6845E;">{{ $letter->arabic }}</span>
+    <span class="font-arabic text-4xl mb-1" style="color: {{ $letter->family_color }};">{{ $letter->arabic }}</span>
 
     {{-- Name --}}
     <span class="text-xs font-medium" style="color: #8B6F5E;">{{ $letter->name }}</span>

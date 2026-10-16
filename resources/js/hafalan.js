@@ -103,7 +103,8 @@ function sm2Update(record, quality) {
         repetitions++;
     }
     easiness = Math.max(1.3, easiness + 0.1 - (5 - quality) * (0.08 + (5 - quality) * 0.02));
-    return { repetitions, easiness, interval, lapses, lastReview: Date.now(), nextReview: Date.now() + interval * DAY };
+    // firstSeen: bila huruf mula dipelajari — untuk had huruf baharu sehari.
+    return { repetitions, easiness, interval, lapses, firstSeen: record?.firstSeen ?? Date.now(), lastReview: Date.now(), nextReview: Date.now() + interval * DAY };
 }
 
 const HafalanSRS = {
@@ -591,6 +592,8 @@ function resetProgress() {
     localStorage.removeItem(LEGACY_PROGRESS_KEY);
     localStorage.removeItem(STREAK_KEY);
     localStorage.removeItem(QUIZ_KEY);
+    localStorage.removeItem('arabic_speed');
+    localStorage.removeItem('arabic_sessions');
 }
 
 function getStreak() {
@@ -671,7 +674,7 @@ window.hafalanData = function () {
 
 const SYNC_CODE_KEY = 'hafalan_sync_code';
 const SYNC_AT_KEY = 'hafalan_sync_at';
-const SYNC_KEYS = [SM2_KEY, STREAK_KEY, QUIZ_KEY, PLAN_KEY, PLAN_DONE_KEY, 'arabic_baris'];
+const SYNC_KEYS = [SM2_KEY, STREAK_KEY, QUIZ_KEY, PLAN_KEY, PLAN_DONE_KEY, 'arabic_baris', 'arabic_speed', 'arabic_sessions'];
 
 function readJson(key) {
     try { return JSON.parse(localStorage.getItem(key) || 'null'); } catch { return null; }
@@ -707,6 +710,22 @@ const mergers = {
             .sort((x, y) => new Date(x) - new Date(y)).slice(-30);
         const latest = new Date(a.lastDate || 0) >= new Date(b.lastDate || 0) ? a : b;
         return { ...latest, count: Math.max(a.count || 0, b.count || 0), history };
+    },
+    // Log kelajuan: gabung ikut hari & huruf (ambil senarai yang lebih panjang).
+    arabic_speed: (a, b) => {
+        const out = { ...a };
+        for (const [day, letters] of Object.entries(b)) {
+            out[day] = { ...(out[day] || {}) };
+            for (const [id, list] of Object.entries(letters)) {
+                if (!out[day][id] || list.length > out[day][id].length) out[day][id] = list;
+            }
+        }
+        return out;
+    },
+    arabic_sessions: (a, b) => {
+        const out = { ...a };
+        for (const [day, n] of Object.entries(b)) out[day] = Math.max(n, out[day] ?? 0);
+        return out;
     },
     [QUIZ_KEY]: (a, b) => {
         const byDate = new Map([...a, ...b].map(q => [q.date, q]));
