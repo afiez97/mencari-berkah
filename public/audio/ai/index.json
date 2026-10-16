@@ -1,20 +1,28 @@
 {
     "items": {
+        "ء": {
+            "file": "/audio/ai/huruf/28-efb7d45d.mp3",
+            "text": "هَمْزَةْ",
+            "letter": "ء",
+            "set": "huruf",
+            "verified": true,
+            "model": "gemini-3.8-flash-lite-tts"
+        },
         "ا": {
-            "file": "/audio/ai/huruf/01-e135a860.wav",
+            "file": "/audio/ai/huruf/01-28437b2c.mp3",
             "text": "أَلِفْ",
             "letter": "ا",
             "set": "huruf",
             "verified": true
         },
         "ب": {
-            "file": "/audio/ai/huruf/02-76086f6a.wav",
+            "file": "/audio/ai/huruf/02-b917eb80.mp3",
             "text": "بَاءْ",
             "letter": "ب",
             "set": "huruf"
         },
         "ت": {
-            "file": "/audio/ai/huruf/03-b8f3213f.wav",
+            "file": "/audio/ai/huruf/03-63e9ddcd.mp3",
             "text": "تَاءْ",
             "letter": "ت",
             "set": "huruf",
@@ -22,28 +30,28 @@
             "model": "gemini-3.8-flash-tts"
         },
         "ث": {
-            "file": "/audio/ai/huruf/04-f490fc59.wav",
+            "file": "/audio/ai/huruf/04-78b0700c.mp3",
             "text": "ثَاءْ",
             "letter": "ث",
             "set": "huruf",
             "verified": true
         },
         "ج": {
-            "file": "/audio/ai/huruf/05-938ee7d8.wav",
+            "file": "/audio/ai/huruf/05-e41b7d4b.mp3",
             "text": "جِيمْ",
             "letter": "ج",
             "set": "huruf",
             "verified": true
         },
         "ح": {
-            "file": "/audio/ai/huruf/06-f0d44c6d.wav",
+            "file": "/audio/ai/huruf/06-a97c2bf3.mp3",
             "text": "حَاءْ",
             "letter": "ح",
             "set": "huruf",
             "verified": true
         },
         "خ": {
-            "file": "/audio/ai/huruf/07-dbf81803.wav",
+            "file": "/audio/ai/huruf/07-d047af2e.mp3",
             "text": "خَاءْ",
             "letter": "خ",
             "set": "huruf",
@@ -51,7 +59,7 @@
             "model": "gemini-3.8-flash-tts"
         },
         "د": {
-            "file": "/audio/ai/huruf/08-283862c1.wav",
+            "file": "/audio/ai/huruf/08-7c089cf9.mp3",
             "text": "دَالْ",
             "letter": "د",
             "set": "huruf",
@@ -59,7 +67,7 @@
             "model": "gemini-3.8-flash-tts"
         },
         "ذ": {
-            "file": "/audio/ai/huruf/09-0fc350e6.wav",
+            "file": "/audio/ai/huruf/09-6da1b955.mp3",
             "text": "ذَالْ",
             "letter": "ذ",
             "set": "huruf",
@@ -67,7 +75,7 @@
             "model": "gemini-3.8-flash-tts"
         },
         "ر": {
-            "file": "/audio/ai/huruf/10-ec94260d.wav",
+            "file": "/audio/ai/huruf/10-bfff9fce.mp3",
             "text": "رَاءْ",
             "letter": "ر",
             "set": "huruf",
@@ -75,7 +83,7 @@
             "model": "gemini-3.8-flash-tts"
         },
         "ز": {
-            "file": "/audio/ai/huruf/11-bf455e3b.wav",
+            "file": "/audio/ai/huruf/11-8f70471d.mp3",
             "text": "زَايْ",
             "letter": "ز",
             "set": "huruf",
@@ -83,7 +91,7 @@
             "model": "gemini-3.8-flash-tts"
         },
         "س": {
-            "file": "/audio/ai/huruf/12-3d0a2ff9.wav",
+            "file": "/audio/ai/huruf/12-a6e56e8e.mp3",
             "text": "سِينْ",
             "letter": "س",
             "set": "huruf",
@@ -91,7 +99,7 @@
             "model": "gemini-3.8-flash-tts"
         },
         "ش": {
-            "file": "/audio/ai/huruf/13-0eae1feb.wav",
+            "file": "/audio/ai/huruf/13-4833f934.mp3",
             "text": "شِينْ",
             "letter": "ش",
             "set": "huruf",
@@ -99,12 +107,124 @@
             "model": "gemini-3.8-flash-tts"
         },
         "ص": {
-            "file": "/audio/ai/huruf/14-7e51de62.wav",
+            "file": "/audio/ai/huruf/14-d33e96ef.mp3",
             "text": "صَادْ",
             "letter": "ص",
             "set": "huruf",
             "verified": true,
             "model": "gemini-3.1-flash-tts-preview"
+        },
+        "ض": {
+            "file": "/audio/ai/huruf/15-04fa9255.mp3",
+            "text": "ضَادْ",
+            "letter": "ض",
+            "set": "huruf",
+            "verified": true,
+            "model": "gemini-3.1-flash-tts-preview"
+        },
+        "ط": {
+            "file": "/audio/ai/huruf/16-78f1c4d4.mp3",
+            "text": "طَاءْ",
+            "letter": "ط",
+            "set": "huruf",
+            "verified": true,
+            "model": "gemini-3.1-flash-tts-preview"
+        },
+        "ظ": {
+            "file": "/audio/ai/huruf/17-69fe1955.mp3",
+            "text": "ظَاءْ",
+            "letter": "ظ",
+            "set": "huruf",
+            "verified": true,
+            "model": "gemini-3.1-flash-tts-preview"
+        },
+        "ع": {
+            "file": "/audio/ai/huruf/18-d2e2eeee.mp3",
+            "text": "عَيْنْ",
+            "letter": "ع",
+            "set": "huruf",
+            "verified": true,
+            "model": "gemini-3.1-flash-tts-preview"
+        },
+        "غ": {
+            "file": "/audio/ai/huruf/19-4173d14e.mp3",
+            "text": "غَيْنْ",
+            "letter": "غ",
+            "set": "huruf",
+            "verified": true,
+            "model": "gemini-3.1-flash-tts-preview"
+        },
+        "ف": {
+            "file": "/audio/ai/huruf/20-3a8e068b.mp3",
+            "text": "فَاءْ",
+            "letter": "ف",
+            "set": "huruf",
+            "verified": true,
+            "model": "gemini-3.1-flash-tts-preview"
+        },
+        "ق": {
+            "file": "/audio/ai/huruf/21-3666fb6f.mp3",
+            "text": "قَافْ",
+            "letter": "ق",
+            "set": "huruf",
+            "verified": true,
+            "model": "gemini-3.8-flash-lite-tts"
+        },
+        "ك": {
+            "file": "/audio/ai/huruf/22-072a971e.mp3",
+            "text": "كَافْ",
+            "letter": "ك",
+            "set": "huruf",
+            "verified": true,
+            "model": "gemini-3.8-flash-lite-tts"
+        },
+        "ل": {
+            "file": "/audio/ai/huruf/23-facab9b5.mp3",
+            "text": "لَامْ",
+            "letter": "ل",
+            "set": "huruf",
+            "verified": true,
+            "model": "gemini-3.8-flash-lite-tts"
+        },
+        "م": {
+            "file": "/audio/ai/huruf/24-18319ad5.mp3",
+            "text": "مِيمْ",
+            "letter": "م",
+            "set": "huruf",
+            "verified": true,
+            "model": "gemini-3.8-flash-lite-tts"
+        },
+        "ن": {
+            "file": "/audio/ai/huruf/25-4c1ecdc1.mp3",
+            "text": "نُونْ",
+            "letter": "ن",
+            "set": "huruf",
+            "verified": true,
+            "model": "gemini-3.8-flash-lite-tts"
+        },
+        "ه": {
+            "file": "/audio/ai/huruf/27-23176697.mp3",
+            "text": "هَاءْ",
+            "letter": "ه",
+            "set": "huruf",
+            "verified": true,
+            "model": "gemini-3.8-flash-lite-tts"
+        },
+        "و": {
+            "file": "/audio/ai/huruf/26-8320f944.mp3",
+            "text": "وَاوْ",
+            "letter": "و",
+            "set": "huruf",
+            "verified": true,
+            "model": "gemini-3.8-flash-lite-tts"
+        },
+        "ي": {
+            "file": "/audio/ai/huruf/29-1da16f42.mp3",
+            "text": "يَاءْ",
+            "letter": "ي",
+            "set": "huruf",
+            "verified": true,
+            "model": "gemini-3.8-flash-lite-tts"
         }
     },
     "generator": {
@@ -118,6 +238,6 @@
             "gemini-3.8-flash-lite-tts"
         ],
         "voice": "Charon",
-        "updated_at": "2026-10-16T06:40:25+00:00"
+        "updated_at": "2026-10-16T06:48:07+00:00"
     }
 }

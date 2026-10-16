@@ -7,7 +7,8 @@
 <section class="rounded-2xl p-5 border mb-6" style="background-color: #F5F0EB; border-color: #E2D5C8;">
     <h2 class="font-semibold mb-1" style="color: #3D2C1E;">🤖 Suara AI (digunakan sekarang)</h2>
     <p class="text-xs mb-3" style="color: #8B6F5E;">
-        Sebutan huruf dan suku kata dijana oleh <strong>{{ $ai['generator']['provider'] ?? 'OpenAI' }} {{ $ai['generator']['model'] ?? '' }}</strong>
+        Sebutan huruf dan suku kata dijana oleh <strong>{{ $ai['generator']['provider'] ?? 'OpenAI' }}</strong>
+        ({{ \App\Support\OpenAudio::modelLabel(collect($ai['items'])->pluck('model')->filter()->unique()->values()->all() ?: ($ai['generator']['model'] ?? null)) }})
         (suara "{{ $ai['generator']['voice'] ?? '' }}") dengan arahan menyebut seperti guru al-Quran. Ini <strong>suara AI, bukan suara manusia</strong> —
         semak sebutan dengan guru. {{ count($ai['items']) }} fail.
     </p>

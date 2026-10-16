@@ -30,7 +30,8 @@ class GenerateAiAudio extends Command
         {--huruf= : Hanya huruf tertentu, cth: ب,خ,ض (jana semula walaupun sudah ada)}
         {--force : Jana semula semua}
         {--engine= : gemini | chat (seperti ChatGPT) | tts — lalai dari AI_AUDIO_ENGINE}
-        {--jeda= : Saat antara permintaan (lalai 6 untuk Gemini free tier)}';
+        {--jeda= : Saat antara permintaan (lalai 6 untuk Gemini free tier)}
+        {--production : Benarkan dijalankan di production (tidak disyorkan)}';
 
     protected $description = 'Jana sebutan huruf & suku kata dengan suara AI (OpenAI TTS)';
 
@@ -54,6 +55,12 @@ class GenerateAiAudio extends Command
 
     public function handle(): int
     {
+        // Audio dijana di mesin pembangun dan di-commit; production hanya menghidangkan fail MP3.
+        if ($this->laravel->environment('production') && !$this->option('production')) {
+            $this->error('audio:ai hanya untuk pembangunan. Production guna fail audio yang sudah di-commit dalam public/audio/ai — tiada kunci AI diperlukan.');
+            return self::FAILURE;
+        }
+
         $this->exhaustedModels = [];
 
         $engine = $this->option('engine')

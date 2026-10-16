@@ -105,13 +105,21 @@ class OpenAudio
             return null;
         }
         $gen = self::ai()['generator'] ?? [];
+        // Model sebenar fail ini; jika tiada, model penjana (boleh jadi satu atau senarai bila model bertukar ikut kuota).
+        $model = $item['model'] ?? self::modelLabel($gen['model'] ?? null);
 
         return [
             'url' => $item['file'],
             'source' => 'ai',
-            'credit' => 'Suara AI · '.($gen['provider'] ?? 'OpenAI').' '.($gen['model'] ?? ''),
+            'credit' => trim('Suara AI · '.($gen['provider'] ?? 'OpenAI').' '.$model),
             'page' => null,
         ];
+    }
+
+    /** Nama model untuk paparan — terima teks atau senarai. */
+    public static function modelLabel(string|array|null $model): string
+    {
+        return is_array($model) ? implode(', ', $model) : (string) $model;
     }
 
     private static function readJson(string $relative): ?array

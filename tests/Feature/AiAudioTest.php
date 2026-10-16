@@ -414,4 +414,36 @@ class AiAudioTest extends TestCase
             ->expectsOutputToContain('Kuota harian semua model TTS Gemini sudah habis')
             ->assertFailed();
     }
+
+    public function test_pages_render_when_generator_model_is_a_list(): void
+    {
+        // Bila model bertukar ikut kuota, index.json simpan senarai model — pernah sebabkan ralat 500 di production.
+        File::ensureDirectoryExists($this->public.'/audio/ai/huruf');
+        file_put_contents($this->public.'/audio/ai/huruf/02-aaaaaaaa.wav', 'RIFF');
+        file_put_contents($this->public.'/audio/ai/huruf/03-bbbbbbbb.wav', 'RIFF');
+        file_put_contents($this->public.'/audio/ai/index.json', json_encode([
+            'generator' => ['provider' => 'Google Gemini', 'engine' => 'gemini', 'model' => ['gemini-3.8-flash-tts', 'gemini-2.5-flash-preview-tts']],
+            'items' => [
+                'ب' => ['file' => '/audio/ai/huruf/02-aaaaaaaa.wav', 'text' => 'بَاءْ', 'letter' => 'ب', 'set' => 'huruf', 'model' => 'gemini-3.8-flash-tts', 'verified' => true],
+                'ت' => ['file' => '/audio/ai/huruf/03-bbbbbbbb.wav', 'text' => 'تَاءْ', 'letter' => 'ت', 'set' => 'huruf'],
+            ],
+        ]));
+        OpenAudio::flush();
+        $this->withoutVite(); // folder public sementara tiada build/manifest.json
+
+        foreach (['/', '/kredit', '/belajar/2', '/baris', '/hafalan/sesi?group=all'] as $url) {
+            $this->get($url)->assertOk();
+        }
+        $map = OpenAudio::clientMap(\App\Models\ArabicLetter::all());
+        $this->assertSame('Suara AI · Google Gemini gemini-3.8-flash-tts', $map['ب']['credit']);
+        $this->assertStringContainsString('gemini-3.8-flash-tts, gemini-2.5-flash-preview-tts', $map['ت']['credit']);
+    }
+
+    public function test_generator_refuses_to_run_in_production(): void
+    {
+        $this->app['env'] = 'production';
+
+        $this->artisan('audio:ai')->expectsOutputToContain('hanya untuk pembangunan')->assertFailed();
+        Http::assertNothingSent();
+    }
 }
