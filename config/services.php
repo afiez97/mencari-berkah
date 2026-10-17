@@ -41,8 +41,9 @@ return [
     'gemini' => [
         'key' => env('GEMINI_API_KEY'),
         // Dicuba ikut susunan; setiap model ada kuota harian free tier sendiri.
+        // Model 2.5 didahulukan: model 3.x menambah bunyi nafas/klik di hujung (dibuang oleh audio:optimise).
         'tts_models' => array_map('trim', explode(',', env('GEMINI_TTS_MODELS',
-            'gemini-3.8-flash-tts,gemini-2.5-flash-preview-tts,gemini-3.1-flash-tts-preview,gemini-2.5-pro-preview-tts,gemini-3.8-flash-lite-tts'))),
+            'gemini-2.5-flash-preview-tts,gemini-2.5-pro-preview-tts,gemini-3.8-flash-tts,gemini-3.1-flash-tts-preview,gemini-3.8-flash-lite-tts'))),
         'tts_voice' => env('GEMINI_TTS_VOICE', 'Charon'),
         // Model yang "mendengar semula" setiap audio untuk sahkan huruf yang disebut (dicuba ikut susunan).
         'check_models' => array_map('trim', explode(',', env('GEMINI_CHECK_MODELS',

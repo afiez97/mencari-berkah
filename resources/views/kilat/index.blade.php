@@ -21,6 +21,8 @@
                 <span class="text-xs tabular-nums" style="color:#8B6F5E;" x-text="(index + 1) + '/' + steps.length"></span>
             </div>
 
+            <template x-for="_ in [index]" :key="index">
+            <div class="kilat-enter">
             {{-- Kenali huruf baharu --}}
             <template x-if="step.type === 'intro'">
                 <div class="text-center">
@@ -72,9 +74,15 @@
                                 <span class="text-sm" style="color:#3D2C1E;" x-text="correct ? step.letter.name : step.letter.mnemonic"></span>
                             </div>
                         </div>
-                        <button type="button" @click="next()" class="w-full py-4 rounded-2xl font-bold text-white" style="background:#A6845E;">Teruskan →</button>
+                        {{-- Betul: maju sendiri (bar mengisi); salah: tunggu supaya sempat baca. --}}
+                        <button type="button" @click="next()" class="relative overflow-hidden w-full py-4 rounded-2xl font-bold text-white" style="background:#A6845E;">
+                            <span x-show="correct" class="absolute inset-y-0 left-0 kilat-autofill" style="background:rgba(255,255,255,0.22);"></span>
+                            <span class="relative" x-text="correct ? 'Seterusnya →' : 'Teruskan →'"></span>
+                        </button>
                     </div>
                 </div>
+            </template>
+            </div>
             </template>
         </div>
     </template>
@@ -141,6 +149,7 @@ function kilatSession() {
     const REVIEW_MAX = 6;
     const MIN_ITEMS = 8;
     const FAST_MS = 3000;
+    const AUTO_NEXT_MS = 900;
 
     const data = window._kilat;
     const byId = Object.fromEntries(data.letters.map(l => [l.id, l]));
@@ -218,6 +227,7 @@ function kilatSession() {
         start() {
             const { steps, fresh, sm2Before } = buildSteps();
             this.steps = steps;
+            preloadArabic(steps.map(s => s.letter.arabic));
             this.fresh = fresh;
             this.before = Kemajuan.levels(sm2Before);
             this.enter();
@@ -247,9 +257,11 @@ function kilatSession() {
             this.results.push({ correct: this.correct, ms: this.correct ? ms : null });
             if (s.mode !== 'dengar') this.say(s.letter); // dengar sebutan selepas jawab — bukan sebelum
 
+            navigator.vibrate?.(this.correct ? 12 : [30, 40, 30]);
             if (this.correct) {
                 Kemajuan.recordSpeed(s.letter.id, ms);
                 this.feedback = ms < FAST_MS ? `Betul! ⚡ ${(ms / 1000).toFixed(1)}s` : 'Betul! 👍';
+                this._auto = setTimeout(() => this.next(), AUTO_NEXT_MS);
             } else {
                 this.feedback = `Hampir — ini ${s.letter.name}`;
                 // Ulang huruf ini sekali lagi dalam sesi yang sama, sedikit kemudian.
@@ -273,6 +285,7 @@ function kilatSession() {
         },
 
         next() {
+            clearTimeout(this._auto);
             if (this.index + 1 < this.steps.length) {
                 this.index++;
                 this.enter();

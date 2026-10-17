@@ -124,4 +124,10 @@ class HafalanTest extends TestCase
         $this->get('/peringatan.ics?masa[]=99:00')->assertRedirect();
         $this->get('/peringatan.ics')->assertRedirect();
     }
+
+    public function test_api_works_without_csrf_token_from_cached_pages(): void
+    {
+        // Halaman dari simpanan service worker mungkin membawa token CSRF lama — API tidak bergantung padanya.
+        $this->postJson('/api/sync')->assertCreated();
+    }
 }

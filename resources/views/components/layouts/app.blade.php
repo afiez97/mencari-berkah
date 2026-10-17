@@ -22,6 +22,13 @@
         window.HAFALAN_AUDIO = @json($letterAudio);
     </script>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+    {{-- Pra-muat tab supaya bertukar serta-merta (Chrome/Edge). --}}
+    <script type="speculationrules">
+    {
+        "prerender": [{ "urls": ["/", "/belajar", "/latihan", "/statistik"], "eagerness": "eager" }],
+        "prefetch": [{ "where": { "and": [{ "href_matches": "/*" }, { "not": { "href_matches": "/kuiz/main*" } }, { "not": { "href_matches": "/*.ics*" } }] }, "eagerness": "moderate" }]
+    }
+    </script>
 </head>
 <body class="min-h-screen pb-20 lg:pb-0" style="background-color: #FAF7F4; font-family: 'Inter', sans-serif; color: #3D2C1E;">
 

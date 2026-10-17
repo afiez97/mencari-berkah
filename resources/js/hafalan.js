@@ -2,15 +2,34 @@
 // Strategy: Laravel /tts proxy (primary) → Web Speech API (fallback)
 // Proxy avoids CORS — server fetches Google TTS and streams audio/mpeg back.
 
-let _audioEl = null;
+// Satu elemen Audio bagi setiap URL, digunakan semula — bunyi keluar serta-merta tanpa
+// muat semula fail setiap kali (dulu `src` ditukar setiap main → lengah di telefon).
+const _audioPool = new Map();
+const AUDIO_POOL_MAX = 60;
+let _playing = null;
 
-function _getAudio() {
-    if (!_audioEl) {
-        _audioEl = new Audio();
-        _audioEl.preload = 'none';
+function _audioFor(url, preload = 'auto') {
+    let el = _audioPool.get(url);
+    if (!el) {
+        el = new Audio();
+        el.preload = preload;
+        el.src = url;
+        _audioPool.set(url, el);
+        if (_audioPool.size > AUDIO_POOL_MAX) _audioPool.delete(_audioPool.keys().next().value);
+    } else {
+        // LRU: pindah ke hujung
+        _audioPool.delete(url);
+        _audioPool.set(url, el);
     }
-    return _audioEl;
+    return el;
 }
+
+/** Muat siap-siap bunyi yang akan dimainkan tidak lama lagi (cth. huruf dalam sesi). */
+function preloadArabic(texts) {
+    [...new Set(texts)].forEach(t => _audioFor(audioUrlFor(t)).load());
+}
+
+window.preloadArabic = preloadArabic;
 
 function _laravelTtsUrl(text) {
     return `/tts?text=${encodeURIComponent(text)}`;
@@ -36,10 +55,13 @@ function audioUrlFor(text) {
 window.audioUrlFor = audioUrlFor;
 
 function speakArabic(text) {
-    const audio = _getAudio();
-    audio.pause();
+    if (_playing) {
+        _playing.pause();
+        _playing.currentTime = 0;
+    }
+    const audio = _audioFor(audioUrlFor(text));
     audio.currentTime = 0;
-    audio.src = audioUrlFor(text);
+    _playing = audio;
 
     const playPromise = audio.play();
     if (playPromise !== undefined) {

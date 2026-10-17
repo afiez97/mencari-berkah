@@ -446,4 +446,36 @@ class AiAudioTest extends TestCase
         $this->artisan('audio:ai')->expectsOutputToContain('hanya untuk pembangunan')->assertFailed();
         Http::assertNothingSent();
     }
+
+    public function test_optimise_removes_trailing_noise_burst_after_speech(): void
+    {
+        if (!(new \Symfony\Component\Process\ExecutableFinder)->find('ffmpeg')) {
+            $this->markTestSkipped('ffmpeg tiada');
+        }
+
+        // 0.2 s senyap · 0.7 s "sebutan" · 0.3 s senyap · 0.08 s letusan (seperti nafas/klik Gemini 3.x) · 0.1 s senyap
+        $tone = fn ($sec, $amp, $hz) => implode('', array_map(fn ($i) => pack('v', (int) ($amp * sin(2 * M_PI * $hz * $i / 24000)) & 0xFFFF), range(0, (int) (24000 * $sec) - 1)));
+        $silence = fn ($sec) => str_repeat("\x00\x00", (int) (24000 * $sec));
+        $pcm = $silence(0.2).$tone(0.7, 9000, 220).$silence(0.3).$tone(0.08, 12000, 3000).$silence(0.1);
+
+        File::ensureDirectoryExists($this->public.'/audio/ai/huruf');
+        file_put_contents($this->public.'/audio/ai/huruf/03-cccccccc.wav', GenerateAiAudio::wav($pcm, 24000));
+        file_put_contents($this->public.'/audio/ai/index.json', json_encode(['items' => [
+            'ت' => ['file' => '/audio/ai/huruf/03-cccccccc.wav', 'text' => 'تَاءْ', 'letter' => 'ت', 'set' => 'huruf'],
+        ]]));
+
+        $this->artisan('audio:optimise')->expectsOutputToContain('1 ada bunyi ekor yang dibuang')->assertSuccessful();
+
+        $item = $this->index()['items']['ت'];
+        $this->assertSame(\App\Console\Commands\OptimiseAiAudio::CLEAN_VERSION, $item['clean']);
+        $mp3 = $this->public.$item['file'];
+        $probe = fn (array $args) => (new \Symfony\Component\Process\Process($args))->mustRun();
+        $duration = (float) trim($probe(['ffprobe', '-v', 'error', '-show_entries', 'format=duration', '-of', 'csv=p=0', $mp3])->getOutput());
+        // Sebutan 0.7 s + jidar kecil + padding — letusan di 1.2 s mesti hilang.
+        $this->assertLessThan(1.05, $duration);
+        $this->assertGreaterThan(0.75, $duration);
+
+        // Dijalankan semula: fail yang sudah bersih dilangkau.
+        $this->artisan('audio:optimise')->expectsOutputToContain('0 fail dibersihkan')->assertSuccessful();
+    }
 }

@@ -4,7 +4,7 @@
 // Aset & bunyi : cache-first (fail Vite ber-hash dan sebutan huruf tidak berubah).
 // Naikkan VERSION bila strategi cache berubah.
 
-const VERSION = 'v6';
+const VERSION = 'v7';
 const CACHE = `hijaiyah-${VERSION}`;
 
 const CORE_PAGES = [
@@ -70,6 +70,26 @@ async function networkFirst(request) {
     }
 }
 
+// Halaman "kerangka" (tab & halaman huruf): kandungannya jarang berubah dan kemajuan pengguna
+// ada dalam localStorage — paparkan serta-merta dari simpanan, kemas kini senyap di latar.
+// Halaman rawak (kuiz, latihan baris, sesi kad) kekal network-first supaya soalan sentiasa baharu.
+const SHELL = [/^\/$/, /^\/belajar(\/\d+)?$/, /^\/latihan$/, /^\/statistik$/, /^\/pelan$/, /^\/kredit$/,
+    /^\/baris$/, /^\/kilat$/, /^\/hafalan$/, /^\/kuiz$/, /^\/keputusan$/];
+
+async function staleWhileRevalidate(event) {
+    const cache = await caches.open(CACHE);
+    const cached = await cache.match(event.request);
+    const refresh = fetch(event.request).then((response) => {
+        if (response.ok) cache.put(event.request, response.clone());
+        return response;
+    });
+    if (cached) {
+        event.waitUntil(refresh.catch(() => {}));
+        return cached;
+    }
+    return refresh.catch(async () => (await cache.match('/offline.html')) || Response.error());
+}
+
 async function cacheFirst(request) {
     const cache = await caches.open(CACHE);
     const cached = await cache.match(request);
@@ -96,6 +116,10 @@ self.addEventListener('fetch', (event) => {
             || url.pathname.startsWith('/storage/audio/') || url.pathname.startsWith('/audio/')
             || url.pathname === '/tts') {
             event.respondWith(cacheFirst(request));
+            return;
+        }
+        if (request.mode === 'navigate' && !url.search && SHELL.some((re) => re.test(url.pathname))) {
+            event.respondWith(staleWhileRevalidate(event));
             return;
         }
         event.respondWith(networkFirst(request));

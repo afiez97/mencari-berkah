@@ -11,7 +11,10 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware): void {
-        //
+        // API tidak bergantung pada cookie sesi (sync = kod rahsia, rakaman guru = X-Teacher-Key),
+        // jadi CSRF tidak melindungi apa-apa di sini — dan halaman yang disimpan service worker
+        // mungkin membawa token lama (ralat 419).
+        $middleware->validateCsrfTokens(except: ['api/*']);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         //

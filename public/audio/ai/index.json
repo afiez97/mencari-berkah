@@ -21,11 +21,27 @@
             "letter": "ب",
             "set": "huruf"
         },
+        "بَ": {
+            "file": "/audio/ai/baris/02-a-be7b0f1b.wav",
+            "text": "بَ",
+            "letter": "ب",
+            "set": "baris",
+            "verified": true,
+            "model": "gemini-3.8-flash-tts"
+        },
         "ت": {
             "file": "/audio/ai/huruf/03-63e9ddcd.mp3",
             "text": "تَاءْ",
             "letter": "ت",
             "set": "huruf",
+            "verified": true,
+            "model": "gemini-3.8-flash-tts"
+        },
+        "تَ": {
+            "file": "/audio/ai/baris/03-a-cdb8bbb1.wav",
+            "text": "تَ",
+            "letter": "ت",
+            "set": "baris",
             "verified": true,
             "model": "gemini-3.8-flash-tts"
         },
@@ -36,12 +52,28 @@
             "set": "huruf",
             "verified": true
         },
+        "ثَ": {
+            "file": "/audio/ai/baris/04-a-87618790.wav",
+            "text": "ثَ",
+            "letter": "ث",
+            "set": "baris",
+            "verified": true,
+            "model": "gemini-3.8-flash-tts"
+        },
         "ج": {
             "file": "/audio/ai/huruf/05-e41b7d4b.mp3",
             "text": "جِيمْ",
             "letter": "ج",
             "set": "huruf",
             "verified": true
+        },
+        "جَ": {
+            "file": "/audio/ai/baris/05-a-418a74bf.wav",
+            "text": "جَ",
+            "letter": "ج",
+            "set": "baris",
+            "verified": true,
+            "model": "gemini-3.8-flash-tts"
         },
         "ح": {
             "file": "/audio/ai/huruf/06-a97c2bf3.mp3",
@@ -50,11 +82,27 @@
             "set": "huruf",
             "verified": true
         },
+        "حَ": {
+            "file": "/audio/ai/baris/06-a-362d9dd7.wav",
+            "text": "حَ",
+            "letter": "ح",
+            "set": "baris",
+            "verified": true,
+            "model": "gemini-3.8-flash-tts"
+        },
         "خ": {
             "file": "/audio/ai/huruf/07-d047af2e.mp3",
             "text": "خَاءْ",
             "letter": "خ",
             "set": "huruf",
+            "verified": true,
+            "model": "gemini-3.8-flash-tts"
+        },
+        "خَ": {
+            "file": "/audio/ai/baris/07-a-517a5718.wav",
+            "text": "خَ",
+            "letter": "خ",
+            "set": "baris",
             "verified": true,
             "model": "gemini-3.8-flash-tts"
         },
@@ -66,11 +114,27 @@
             "verified": true,
             "model": "gemini-3.8-flash-tts"
         },
+        "دَ": {
+            "file": "/audio/ai/baris/08-a-4426aa1a.wav",
+            "text": "دَ",
+            "letter": "د",
+            "set": "baris",
+            "verified": true,
+            "model": "gemini-3.8-flash-tts"
+        },
         "ذ": {
             "file": "/audio/ai/huruf/09-6da1b955.mp3",
             "text": "ذَالْ",
             "letter": "ذ",
             "set": "huruf",
+            "verified": true,
+            "model": "gemini-3.8-flash-tts"
+        },
+        "ذَ": {
+            "file": "/audio/ai/baris/09-a-7a8197aa.wav",
+            "text": "ذَ",
+            "letter": "ذ",
+            "set": "baris",
             "verified": true,
             "model": "gemini-3.8-flash-tts"
         },
@@ -82,6 +146,14 @@
             "verified": true,
             "model": "gemini-3.8-flash-tts"
         },
+        "رَ": {
+            "file": "/audio/ai/baris/10-a-3addcc2f.wav",
+            "text": "رَ",
+            "letter": "ر",
+            "set": "baris",
+            "verified": true,
+            "model": "gemini-2.5-flash-preview-tts"
+        },
         "ز": {
             "file": "/audio/ai/huruf/11-8f70471d.mp3",
             "text": "زَايْ",
@@ -89,6 +161,14 @@
             "set": "huruf",
             "verified": true,
             "model": "gemini-3.8-flash-tts"
+        },
+        "زَ": {
+            "file": "/audio/ai/baris/11-a-c701be6c.wav",
+            "text": "زَ",
+            "letter": "ز",
+            "set": "baris",
+            "verified": true,
+            "model": "gemini-2.5-flash-preview-tts"
         },
         "س": {
             "file": "/audio/ai/huruf/12-a6e56e8e.mp3",
@@ -98,6 +178,14 @@
             "verified": true,
             "model": "gemini-3.8-flash-tts"
         },
+        "سَ": {
+            "file": "/audio/ai/baris/12-a-1dffda9b.wav",
+            "text": "سَ",
+            "letter": "س",
+            "set": "baris",
+            "verified": true,
+            "model": "gemini-2.5-flash-preview-tts"
+        },
         "ش": {
             "file": "/audio/ai/huruf/13-4833f934.mp3",
             "text": "شِينْ",
@@ -105,6 +193,14 @@
             "set": "huruf",
             "verified": true,
             "model": "gemini-3.8-flash-tts"
+        },
+        "شَ": {
+            "file": "/audio/ai/baris/13-a-de3ee5a4.wav",
+            "text": "شَ",
+            "letter": "ش",
+            "set": "baris",
+            "verified": true,
+            "model": "gemini-2.5-flash-preview-tts"
         },
         "ص": {
             "file": "/audio/ai/huruf/14-d33e96ef.mp3",
@@ -114,6 +210,14 @@
             "verified": true,
             "model": "gemini-3.1-flash-tts-preview"
         },
+        "صَ": {
+            "file": "/audio/ai/baris/14-a-6fd0fffe.wav",
+            "text": "صَ",
+            "letter": "ص",
+            "set": "baris",
+            "verified": true,
+            "model": "gemini-2.5-flash-preview-tts"
+        },
         "ض": {
             "file": "/audio/ai/huruf/15-04fa9255.mp3",
             "text": "ضَادْ",
@@ -121,6 +225,14 @@
             "set": "huruf",
             "verified": true,
             "model": "gemini-3.1-flash-tts-preview"
+        },
+        "ضَ": {
+            "file": "/audio/ai/baris/15-a-139b63e6.wav",
+            "text": "ضَ",
+            "letter": "ض",
+            "set": "baris",
+            "verified": true,
+            "model": "gemini-2.5-flash-preview-tts"
         },
         "ط": {
             "file": "/audio/ai/huruf/16-78f1c4d4.mp3",
@@ -130,6 +242,14 @@
             "verified": true,
             "model": "gemini-3.1-flash-tts-preview"
         },
+        "طَ": {
+            "file": "/audio/ai/baris/16-a-d1b185c3.wav",
+            "text": "طَ",
+            "letter": "ط",
+            "set": "baris",
+            "verified": true,
+            "model": "gemini-2.5-flash-preview-tts"
+        },
         "ظ": {
             "file": "/audio/ai/huruf/17-69fe1955.mp3",
             "text": "ظَاءْ",
@@ -137,6 +257,14 @@
             "set": "huruf",
             "verified": true,
             "model": "gemini-3.1-flash-tts-preview"
+        },
+        "ظَ": {
+            "file": "/audio/ai/baris/17-a-fa983cd7.wav",
+            "text": "ظَ",
+            "letter": "ظ",
+            "set": "baris",
+            "verified": true,
+            "model": "gemini-2.5-flash-preview-tts"
         },
         "ع": {
             "file": "/audio/ai/huruf/18-d2e2eeee.mp3",
@@ -154,11 +282,27 @@
             "verified": true,
             "model": "gemini-3.1-flash-tts-preview"
         },
+        "غَ": {
+            "file": "/audio/ai/baris/19-a-c18f955f.wav",
+            "text": "غَ",
+            "letter": "غ",
+            "set": "baris",
+            "verified": true,
+            "model": "gemini-3.1-flash-tts-preview"
+        },
         "ف": {
             "file": "/audio/ai/huruf/20-3a8e068b.mp3",
             "text": "فَاءْ",
             "letter": "ف",
             "set": "huruf",
+            "verified": true,
+            "model": "gemini-3.1-flash-tts-preview"
+        },
+        "فَ": {
+            "file": "/audio/ai/baris/20-a-0e65ded4.wav",
+            "text": "فَ",
+            "letter": "ف",
+            "set": "baris",
             "verified": true,
             "model": "gemini-3.1-flash-tts-preview"
         },
@@ -238,6 +382,6 @@
             "gemini-3.8-flash-lite-tts"
         ],
         "voice": "Charon",
-        "updated_at": "2026-10-16T06:48:07+00:00"
+        "updated_at": "2026-10-17T19:37:09+00:00"
     }
 }

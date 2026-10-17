@@ -49,3 +49,20 @@
 }
 
 [x-cloak] { display: none !important; }
+
+/* Ketukan pantas di telefon: tiada lengah zum ketuk-dua-kali, tiada kilatan biru. */
+button, a, [role="button"], input, label { touch-action: manipulation; -webkit-tap-highlight-color: transparent; }
+
+/* Sesi 5 minit: peralihan lembut antara langkah, dan bar "maju sendiri" selepas jawapan betul. */
+@keyframes kilat-enter { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+.kilat-enter { animation: kilat-enter 220ms ease-out both; }
+@keyframes kilat-autofill { from { width: 0; } to { width: 100%; } }
+.kilat-autofill { animation: kilat-autofill 900ms linear both; }
+@media (prefers-reduced-motion: reduce) { .kilat-enter, .kilat-autofill { animation: none; } }
+
+/* Peralihan antara halaman (MPA View Transitions — Chrome 126+, Safari 18.2+):
+   tab bawah kekal tetap, kandungan sahaja yang bertukar dengan pantas. */
+@view-transition { navigation: auto; }
+.tabbar { view-transition-name: tabbar; }
+::view-transition-old(root), ::view-transition-new(root) { animation-duration: 140ms; }
+@media (prefers-reduced-motion: reduce) { @view-transition { navigation: none; } }
