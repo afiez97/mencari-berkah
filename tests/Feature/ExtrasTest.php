@@ -192,4 +192,24 @@ class ExtrasTest extends TestCase
     {
         $this->get('/kredit')->assertOk()->assertSee('AlNatiq')->assertSee('Zinou2go')->assertSee('Rashed Aljahdali')->assertSee('CC BY-SA 3.0');
     }
+
+    public function test_reseeding_updates_old_data_but_keeps_ids_and_teacher_audio(): void
+    {
+        // Simulasi pangkalan data lama di production (nama & bentuk Hamzah lama, rakaman guru).
+        $hamzah = ArabicLetter::where('arabic', 'ء')->first();
+        $hamzah->update(['name' => 'Hamzah', 'form_initial' => 'أ', 'form_medial' => 'ئـ', 'form_final' => 'ئ', 'order_num' => 29]);
+        ArabicLetter::where('arabic', 'خ')->update(['name' => 'Kha', 'audio_url' => '/storage/audio/guru-kho.webm']);
+        $ids = ArabicLetter::pluck('id', 'arabic')->all();
+
+        $this->seed(ArabicLetterSeeder::class);
+
+        $this->assertSame($ids, ArabicLetter::pluck('id', 'arabic')->all());
+        $this->assertSame(29, ArabicLetter::count());
+        $fresh = ArabicLetter::where('arabic', 'ء')->first();
+        $this->assertSame(['ء', 'ء', 'ء'], [$fresh->form_initial, $fresh->form_medial, $fresh->form_final]);
+        $this->assertSame(28, $fresh->order_num);
+        $kho = ArabicLetter::where('arabic', 'خ')->first();
+        $this->assertSame('Kho', $kho->name);
+        $this->assertSame('/storage/audio/guru-kho.webm', $kho->audio_url);
+    }
 }

@@ -9,7 +9,8 @@ class ArabicLetterSeeder extends Seeder
 {
     public function run(): void
     {
-        ArabicLetter::truncate();
+        // Tidak lagi truncate: kemas kini ikut huruf supaya ID (kunci kemajuan pengguna)
+        // dan rakaman guru (audio_url) kekal bila seeder dijalankan semula di production.
 
         // Susunan mengikut urutan huruf hijaiyah standard (1-28 + Hamzah bonus)
         $letters = [
@@ -277,7 +278,13 @@ class ArabicLetterSeeder extends Seeder
         ];
 
         foreach ($letters as $letter) {
-            ArabicLetter::create($letter);
+            $existing = ArabicLetter::where('arabic', $letter['arabic'])->first();
+            if ($existing) {
+                unset($letter['audio_url']); // jangan padam rakaman guru
+                $existing->update($letter);
+            } else {
+                ArabicLetter::create($letter);
+            }
         }
     }
 }
